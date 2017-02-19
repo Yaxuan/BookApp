@@ -15,7 +15,7 @@ namespace BookApp.DataAccess.Repository
         {
             throw new UnintentionalCodeFirstException();
         }
-        //test
+        //test 2
         public virtual DbSet<Book> Books { get; set; }
     }
 }
