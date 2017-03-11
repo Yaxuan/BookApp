@@ -55,3 +55,15 @@ C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.Practices.Unity.xml
 C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.Practices.Unity.Configuration.xml
 C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
 C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.Practices.Unity.WebApi.xml
+C:\Code\Prototype\BookApp\BookApp\obj\Debug\BookApp.csprojResolveAssemblyReference.cache
+C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.ApplicationInsights.TraceListener.dll
+C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.ApplicationInsights.TraceListener.xml
+C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.WindowsAzure.Diagnostics.dll
+C:\Code\Prototype\BookApp\BookApp\bin\Microsoft.WindowsAzure.ServiceRuntime.dll
+C:\Code\Prototype\BookApp\BookApp\bin\Swashbuckle.Core.dll
+C:\Code\Prototype\BookApp\BookApp\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Code\Prototype\BookApp\BookApp\bin\WindowsAzureEventSource.dll
+C:\Code\Prototype\BookApp\BookApp\bin\WindowsAzureTelemetryEvents.dll
+C:\Code\Prototype\BookApp\BookApp\bin\MonAgentListener.dll
+C:\Code\Prototype\BookApp\BookApp\bin\System.IdentityModel.Tokens.Jwt.xml

@@ -33,3 +33,9 @@ C:\Code\Prototype\BookApp\BookClient.Tests\bin\Debug\System.Web.WebPages.Deploym
 C:\Code\Prototype\BookApp\BookClient.Tests\obj\Debug\BookClient.Tests.csprojResolveAssemblyReference.cache
 C:\Code\Prototype\BookApp\BookClient.Tests\obj\Debug\BookClient.Tests.dll
 C:\Code\Prototype\BookApp\BookClient.Tests\obj\Debug\BookClient.Tests.pdb
+C:\Code\Prototype\BookApp\BookClient.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Code\Prototype\BookApp\BookClient.Tests\bin\Debug\Microsoft.WindowsAzure.Diagnostics.dll
+C:\Code\Prototype\BookApp\BookClient.Tests\bin\Debug\Microsoft.WindowsAzure.ServiceRuntime.dll
+C:\Code\Prototype\BookApp\BookClient.Tests\bin\Debug\WindowsAzureEventSource.dll
+C:\Code\Prototype\BookApp\BookClient.Tests\bin\Debug\WindowsAzureTelemetryEvents.dll
+C:\Code\Prototype\BookApp\BookClient.Tests\bin\Debug\MonAgentListener.dll

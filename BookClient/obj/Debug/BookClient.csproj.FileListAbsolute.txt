@@ -48,3 +48,8 @@ C:\Code\Prototype\BookApp\BookClient\bin\System.Web.Mvc.xml
 C:\Code\Prototype\BookApp\BookClient\obj\Debug\BookClient.csprojResolveAssemblyReference.cache
 C:\Code\Prototype\BookApp\BookClient\obj\Debug\BookClient.dll
 C:\Code\Prototype\BookApp\BookClient\obj\Debug\BookClient.pdb
+C:\Code\Prototype\BookApp\BookClient\bin\Microsoft.WindowsAzure.Diagnostics.dll
+C:\Code\Prototype\BookApp\BookClient\bin\Microsoft.WindowsAzure.ServiceRuntime.dll
+C:\Code\Prototype\BookApp\BookClient\bin\WindowsAzureEventSource.dll
+C:\Code\Prototype\BookApp\BookClient\bin\WindowsAzureTelemetryEvents.dll
+C:\Code\Prototype\BookApp\BookClient\bin\MonAgentListener.dll

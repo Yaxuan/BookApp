@@ -41,3 +41,9 @@ C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\Microsoft.Practices.ServiceLoc
 C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\Microsoft.Practices.ServiceLocation.xml
 C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\EntityFramework.SqlServer.dll
 C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\EntityFramework.SqlServer.xml
+C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\Microsoft.WindowsAzure.Diagnostics.dll
+C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\Microsoft.WindowsAzure.ServiceRuntime.dll
+C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\WindowsAzureEventSource.dll
+C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\WindowsAzureTelemetryEvents.dll
+C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\Swashbuckle.Core.dll
+C:\Code\Prototype\BookApp\BookApp.Tests\bin\Debug\MonAgentListener.dll

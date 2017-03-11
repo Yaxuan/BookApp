@@ -14,6 +14,7 @@ using BookApp.DataAccess.Interface;
 
 namespace BookApp.Controllers
 {
+
     public class BooksController : ApiController
     {
         private BookEntities db = new BookEntities();
@@ -28,6 +29,13 @@ namespace BookApp.Controllers
         public IEnumerable<Book> GetBooks()
         {
             return _context.Books.GetAll();
+        }
+
+        [HttpGet]
+        [Route("api/books/search/{name}")]
+        public IEnumerable<Book> SearchBook(string name)
+        {
+            return _context.Books.Find(b => b.title.Contains(name));
         }
 
         // GET: api/Books/5

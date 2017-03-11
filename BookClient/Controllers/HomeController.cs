@@ -13,7 +13,11 @@ namespace BookClient.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly string _bookRestApi = "http://localhost:8080/";
+        private readonly string _bookRestApi = "http://localhost:60673/";
+
+        private readonly string _bookRestApiTest = "http://localhost:8080/"; //soupUI
+
+        private readonly string _bookRestApiLocal = "http://localhost:60673/";
 
         // GET: Home
         public ActionResult Index()
@@ -23,7 +27,7 @@ namespace BookClient.Controllers
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("api/book").Result; //TODO Make it async
+            HttpResponseMessage response = client.GetAsync("api/books").Result; //TODO Make it async
 
             if (response.IsSuccessStatusCode)
             {
