@@ -7,15 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BookApp.DataAccess
+namespace BookApp.Models
 {
+    using System;
+    using System.Collections.Generic;
     
-    public partial class Book
+    public partial class MemberCampusAddress
     {
-        public int book_no { get; set; }
-        public string title { get; set; }
-        public string author { get; set; }
-        public string review { get; set; }
-        public string isbn { get; set; }
+        public int Member_id { get; set; }
+        public string Campus_Address { get; set; }
+    
+        public virtual NormalMember NormalMember { get; set; }
     }
 }

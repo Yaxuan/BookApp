@@ -24,39 +24,66 @@ namespace BookApp.DataAccess.Repository
             return Task.Run(() => Context.Set<TEntity>().Find(id));            
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<TEntity> GetAsync(string id)
         {
-            return Context.Set<TEntity>().ToList();
+            // Here we are working with a DbContext. So we don't have DbSets 
+            // such as Courses or Authors, and we need to use the generic Set() method to access them.
+            return await Context.Set<TEntity>().FindAsync(id);
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return Context.Set<TEntity>().Where(predicate);
+            return  await Context.Set<TEntity>().ToListAsync();
         }
 
-        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+        public Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().SingleOrDefault(predicate);
+            return Task.Run(() => Context.Set<TEntity>().Where(predicate).AsEnumerable());
         }
 
-        public void Add(TEntity entity)
+        public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Task.Run(() => Context.Set<TEntity>().SingleOrDefault(predicate));
+        }
+
+        public async Task AddAsync(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
+            await Context.SaveChangesAsync();
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().AddRange(entities);
+            await Context.SaveChangesAsync();
         }
 
-        public void Remove(TEntity entity)
+        public async Task RemoveAsync(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
+            await Context.SaveChangesAsync();
         }
 
-        public void RemoveRange(IEnumerable<TEntity> entities)
+        public async Task RemoveRangeAsync(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().RemoveRange(entities);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task SaveAsync(TEntity entity)
+        {
+            Context.Entry(entity).State = EntityState.Modified;
+            Context.Set<TEntity>().Attach(entity);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task SaveRangeAsync(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Context.Set<TEntity>().Attach(entity);
+            }
+            await Context.SaveChangesAsync();
         }
     }
 }

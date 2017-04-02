@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using BookApp.DataAccess.Interface;
+using BookApp.Models;
 
 namespace BookApp.DataAccess.Repository
 {
@@ -10,10 +11,6 @@ namespace BookApp.DataAccess.Repository
         public BookRepository(DataContext context) : base(context)
         {
         }
-
-        public DataContext Context
-        {
-            get { return Context as DataContext; }
-        }
+   
     }
 }

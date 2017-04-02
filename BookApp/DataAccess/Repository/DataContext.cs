@@ -1,8 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using BookApp.Models;
 
 namespace BookApp.DataAccess.Repository
 {
+    //For testing
     public class DataContext : DbContext
     {
         public DataContext()
@@ -15,7 +17,8 @@ namespace BookApp.DataAccess.Repository
         {
             throw new UnintentionalCodeFirstException();
         }
-        //test 3
+
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

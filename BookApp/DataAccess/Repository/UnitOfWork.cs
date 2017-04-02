@@ -10,9 +10,11 @@ namespace BookApp.DataAccess.Repository
         {
             _context = context;
             Books = new BookRepository(_context);
+            Users = new UserRepository(_context);
         }
 
         public IBookRepository Books { get; }
+        public IUserRepository Users { get; }
 
         public int Complete()
         {
@@ -23,5 +25,7 @@ namespace BookApp.DataAccess.Repository
         {
             _context.Dispose();
         }
+
+        
     }
 }

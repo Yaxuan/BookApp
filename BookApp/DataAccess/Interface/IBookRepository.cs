@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BookApp.Models;
 
 namespace BookApp.DataAccess.Interface
 {

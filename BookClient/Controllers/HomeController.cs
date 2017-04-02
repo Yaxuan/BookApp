@@ -13,8 +13,6 @@ namespace BookClient.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly string _bookRestApi = "http://localhost:60673/";
-
         private readonly string _bookRestApiTest = "http://localhost:8080/"; //soupUI
 
         private readonly string _bookRestApiLocal = "http://localhost:60673/";
@@ -23,7 +21,7 @@ namespace BookClient.Controllers
         public ActionResult Index()
         {
             List<Book> books = new List<Book>();
-            HttpClient client = new HttpClient {BaseAddress = new Uri(_bookRestApi)};
+            HttpClient client = new HttpClient {BaseAddress = new Uri(_bookRestApiLocal) };
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -45,7 +43,7 @@ namespace BookClient.Controllers
         [HttpPost]
         public ActionResult Create(Book book)
         {
-            HttpClient client = new HttpClient { BaseAddress = new Uri(_bookRestApi) };
+            HttpClient client = new HttpClient { BaseAddress = new Uri(_bookRestApiLocal) };
 
             client.PostAsJsonAsync("api/book", book).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
 

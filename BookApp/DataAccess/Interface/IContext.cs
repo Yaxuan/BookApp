@@ -3,6 +3,8 @@
     public interface IContext
     {
         IBookRepository Books { get; }
+
+        IUserRepository Users { get; }
         int Complete();
     }
 }

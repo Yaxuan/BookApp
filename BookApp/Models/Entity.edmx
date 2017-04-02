@@ -1,0 +1,1553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GlsEntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Author_id" />
+          </Key>
+          <Property Name="Author_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="date" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Item_id" />
+          </Key>
+          <Property Name="Item_id" Type="int" Nullable="false" />
+          <Property Name="Isbn" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Language" Type="int" />
+          <Property Name="Binding" Type="int" />
+          <Property Name="Edition" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Price_unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="Publisher" Type="nvarchar" MaxLength="50" />
+          <Property Name="Publish_time" Type="date" />
+          <Property Name="Page" Type="int" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Create_time" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BookAuthor">
+          <Key>
+            <PropertyRef Name="Item_id" />
+            <PropertyRef Name="Author_id" />
+          </Key>
+          <Property Name="Item_id" Type="int" Nullable="false" />
+          <Property Name="Author_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookLog">
+          <Key>
+            <PropertyRef Name="Book_event_id" />
+          </Key>
+          <Property Name="Book_event_id" Type="int" Nullable="false" />
+          <Property Name="Serial_item_id" Type="int" />
+          <Property Name="Location_id" Type="int" />
+          <Property Name="Action" Type="nvarchar" MaxLength="50" />
+          <Property Name="Time_stamp" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Isbn" Type="nvarchar" MaxLength="50" />
+          <Property Name="Item_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="int" Nullable="false" />
+          <Property Name="Work_phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fine">
+          <Key>
+            <PropertyRef Name="Fine_id" />
+          </Key>
+          <Property Name="Fine_id" Type="int" Nullable="false" />
+          <Property Name="Member_id" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="Amount" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Deadline" Type="date" Nullable="false" />
+          <Property Name="Serial_item_id" Type="int" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="InsideReservation">
+          <Key>
+            <PropertyRef Name="Reserve_id" />
+          </Key>
+          <Property Name="Reserve_id" Type="int" Nullable="false" />
+          <Property Name="Serial_item_id" Type="int" Nullable="false" />
+          <Property Name="Batch_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Item_id" />
+          </Key>
+          <Property Name="Item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Item_type" Type="int" Nullable="false" />
+          <Property Name="Subject" Type="int" />
+          <Property Name="Create_time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemStatus">
+          <Key>
+            <PropertyRef Name="Item_id" />
+          </Key>
+          <Property Name="Item_id" Type="int" Nullable="false" />
+          <Property Name="Total_copy" Type="smallint" Nullable="false" />
+          <Property Name="Location_id" Type="int" />
+          <Property Name="Reserved_copy" Type="smallint" />
+          <Property Name="Missing_copy" Type="smallint" />
+          <Property Name="Damaged_copy" Type="smallint" />
+          <Property Name="Checkout_copy" Type="smallint" />
+          <Property Name="Can_loan_out" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Library">
+          <Key>
+            <PropertyRef Name="Member_id" />
+          </Key>
+          <Property Name="Member_id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Loan_Rule">
+          <Key>
+            <PropertyRef Name="Loan_rule_id" />
+          </Key>
+          <Property Name="Loan_rule_id" Type="int" Nullable="false" />
+          <Property Name="Max_loan_book" Type="smallint" Nullable="false" />
+          <Property Name="Max_loan_day" Type="smallint" Nullable="false" />
+          <Property Name="Grace_day" Type="smallint" Nullable="false" />
+          <Property Name="Notification_day" Type="smallint" Nullable="false" />
+          <Property Name="Mail_choice" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Location_id" />
+          </Key>
+          <Property Name="Location_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_no" Type="int" Nullable="false" />
+          <Property Name="Shelf_no" Type="int" Nullable="false" />
+          <Property Name="X" Type="int" Nullable="false" />
+          <Property Name="Y" Type="int" Nullable="false" />
+          <Property Name="Location_code" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Member_id" />
+          </Key>
+          <Property Name="Member_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Post_code" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MemberCampusAddress">
+          <Key>
+            <PropertyRef Name="Member_id" />
+          </Key>
+          <Property Name="Member_id" Type="int" Nullable="false" />
+          <Property Name="Campus_Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberCard">
+          <Key>
+            <PropertyRef Name="Member_card_id" />
+          </Key>
+          <Property Name="Member_card_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Member_id" Type="int" Nullable="false" />
+          <Property Name="Expired_date" Type="date" Nullable="false" />
+          <Property Name="Create_date" Type="date" Nullable="false" />
+          <Property Name="Photo" Type="image" />
+        </EntityType>
+        <EntityType Name="NormalMember">
+          <Key>
+            <PropertyRef Name="Member_id" />
+          </Key>
+          <Property Name="Member_id" Type="int" Nullable="false" />
+          <Property Name="Ssn" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="First_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Member_type" Type="int" Nullable="false" />
+          <Property Name="Loan_rule_id" Type="int" />
+          <Property Name="User_id" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OutsideReservation">
+          <Key>
+            <PropertyRef Name="Reserve_id" />
+          </Key>
+          <Property Name="Reserve_id" Type="int" Nullable="false" />
+          <Property Name="Library_id" Type="int" />
+          <Property Name="External_id" Type="nvarchar" MaxLength="100" />
+          <Property Name="Batch_id" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Permision_id" />
+          </Key>
+          <Property Name="Permision_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="Reservation_id" />
+          </Key>
+          <Property Name="Reservation_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Member_id" Type="int" Nullable="false" />
+          <Property Name="Reserve_time" Type="datetime" Nullable="false" />
+          <Property Name="Expected_return_date" Type="date" />
+          <Property Name="Checkout_time" Type="datetime" />
+          <Property Name="Status" Type="smallint" />
+          <Property Name="Returned_time" Type="datetime" />
+          <Property Name="Pickup_method" Type="smallint" />
+          <Property Name="Batch_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SerialItem">
+          <Key>
+            <PropertyRef Name="Serial_item_id" />
+          </Key>
+          <Property Name="Serial_item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Item_id" Type="int" Nullable="false" />
+          <Property Name="Serial_item_status" Type="smallint" Nullable="false" />
+          <Property Name="Library_status" Type="smallint" Nullable="false" />
+          <Property Name="Location_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Create_time" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="User_group_id" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserGroup">
+          <Key>
+            <PropertyRef Name="User_group_id" />
+          </Key>
+          <Property Name="User_group_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserGroupPermission">
+          <Key>
+            <PropertyRef Name="User_group_id" />
+            <PropertyRef Name="Permision_id" />
+          </Key>
+          <Property Name="User_group_id" Type="smallint" Nullable="false" />
+          <Property Name="Permision_id" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WishList">
+          <Key>
+            <PropertyRef Name="Item_id" />
+          </Key>
+          <Property Name="Item_id" Type="int" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Copy" Type="int" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_Book_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookAuthor_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1" />
+          <End Role="BookAuthor" Type="Self.BookAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Author_id" />
+            </Principal>
+            <Dependent Role="BookAuthor">
+              <PropertyRef Name="Author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookAuthor_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="BookAuthor" Type="Self.BookAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="BookAuthor">
+              <PropertyRef Name="Item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fine_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fine_SerialItem">
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="0..1" />
+          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerialItem">
+              <PropertyRef Name="Serial_item_id" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="Serial_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsideReservation_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="InsideReservation" Type="Self.InsideReservation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="Reservation_id" />
+            </Principal>
+            <Dependent Role="InsideReservation">
+              <PropertyRef Name="Reserve_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemStatus_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemStatus" Type="Self.ItemStatus" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="ItemStatus">
+              <PropertyRef Name="Item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemStatus_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="ItemStatus" Type="Self.ItemStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Location_id" />
+            </Principal>
+            <Dependent Role="ItemStatus">
+              <PropertyRef Name="Location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Library_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Library" Type="Self.Library" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="Library">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberCampusAddress_NormalMember">
+          <End Role="NormalMember" Type="Self.NormalMember" Multiplicity="1" />
+          <End Role="MemberCampusAddress" Type="Self.MemberCampusAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="NormalMember">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="MemberCampusAddress">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NormalMember_Loan_Rule">
+          <End Role="Loan_Rule" Type="Self.Loan_Rule" Multiplicity="0..1" />
+          <End Role="NormalMember" Type="Self.NormalMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loan_Rule">
+              <PropertyRef Name="Loan_rule_id" />
+            </Principal>
+            <Dependent Role="NormalMember">
+              <PropertyRef Name="Loan_rule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NormalMember_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="NormalMember" Type="Self.NormalMember" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="NormalMember">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NormalMember_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="NormalMember" Type="Self.NormalMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="NormalMember">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutsideReservation_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="OutsideReservation" Type="Self.OutsideReservation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="Reservation_id" />
+            </Principal>
+            <Dependent Role="OutsideReservation">
+              <PropertyRef Name="Reserve_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialItem_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="SerialItem">
+              <PropertyRef Name="Serial_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialItem_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Location_id" />
+            </Principal>
+            <Dependent Role="SerialItem">
+              <PropertyRef Name="Location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserGroup">
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroup">
+              <PropertyRef Name="User_group_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="User_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGroupPermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="UserGroupPermission" Type="Self.UserGroupPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Permision_id" />
+            </Principal>
+            <Dependent Role="UserGroupPermission">
+              <PropertyRef Name="Permision_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGroupPermission_UserGroup">
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="1" />
+          <End Role="UserGroupPermission" Type="Self.UserGroupPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroup">
+              <PropertyRef Name="User_group_id" />
+            </Principal>
+            <Dependent Role="UserGroupPermission">
+              <PropertyRef Name="User_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="WishList" Type="Self.WishList" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="Item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GlsEntityModelStoreContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookAuthor" EntityType="Self.BookAuthor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookLog" EntityType="Self.BookLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fine" EntityType="Self.Fine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InsideReservation" EntityType="Self.InsideReservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemStatus" EntityType="Self.ItemStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Library" EntityType="Self.Library" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loan_Rule" EntityType="Self.Loan_Rule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberCampusAddress" EntityType="Self.MemberCampusAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberCard" EntityType="Self.MemberCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NormalMember" EntityType="Self.NormalMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutsideReservation" EntityType="Self.OutsideReservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SerialItem" EntityType="Self.SerialItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserGroupPermission" EntityType="Self.UserGroupPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Book_Item" Association="Self.FK_Book_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookAuthor_Author" Association="Self.FK_BookAuthor_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="BookAuthor" EntitySet="BookAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookAuthor_Book" Association="Self.FK_BookAuthor_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookAuthor" EntitySet="BookAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fine_Member" Association="Self.FK_Fine_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Fine" EntitySet="Fine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fine_SerialItem" Association="Self.FK_Fine_SerialItem">
+            <End Role="SerialItem" EntitySet="SerialItem" />
+            <End Role="Fine" EntitySet="Fine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsideReservation_Reservation" Association="Self.FK_InsideReservation_Reservation">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="InsideReservation" EntitySet="InsideReservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemStatus_Item" Association="Self.FK_ItemStatus_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemStatus_Location" Association="Self.FK_ItemStatus_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Library_Member" Association="Self.FK_Library_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Library" EntitySet="Library" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberCampusAddress_NormalMember" Association="Self.FK_MemberCampusAddress_NormalMember">
+            <End Role="NormalMember" EntitySet="NormalMember" />
+            <End Role="MemberCampusAddress" EntitySet="MemberCampusAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NormalMember_Loan_Rule" Association="Self.FK_NormalMember_Loan_Rule">
+            <End Role="Loan_Rule" EntitySet="Loan_Rule" />
+            <End Role="NormalMember" EntitySet="NormalMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NormalMember_Member" Association="Self.FK_NormalMember_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="NormalMember" EntitySet="NormalMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NormalMember_User" Association="Self.FK_NormalMember_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="NormalMember" EntitySet="NormalMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutsideReservation_Reservation" Association="Self.FK_OutsideReservation_Reservation">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="OutsideReservation" EntitySet="OutsideReservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Member" Association="Self.FK_Reservation_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialItem_Item" Association="Self.FK_SerialItem_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="SerialItem" EntitySet="SerialItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialItem_Location" Association="Self.FK_SerialItem_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="SerialItem" EntitySet="SerialItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserGroup" Association="Self.FK_User_UserGroup">
+            <End Role="UserGroup" EntitySet="UserGroup" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGroupPermission_Permission" Association="Self.FK_UserGroupPermission_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="UserGroupPermission" EntitySet="UserGroupPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGroupPermission_UserGroup" Association="Self.FK_UserGroupPermission_UserGroup">
+            <End Role="UserGroup" EntitySet="UserGroup" />
+            <End Role="UserGroupPermission" EntitySet="UserGroupPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Item" Association="Self.FK_WishList_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GlsEntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Author_id" />
+          </Key>
+          <Property Name="Author_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Books" Relationship="Self.BookAuthor" FromRole="Author" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Item_id" />
+          </Key>
+          <Property Name="Item_id" Type="Int32" Nullable="false" />
+          <Property Name="Isbn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Language" Type="Int32" />
+          <Property Name="Binding" Type="Int32" />
+          <Property Name="Edition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price_unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Publish_time" Type="DateTime" Precision="0" />
+          <Property Name="Page" Type="Int32" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Create_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_Book_Item" FromRole="Book" ToRole="Item" />
+          <NavigationProperty Name="Authors" Relationship="Self.BookAuthor" FromRole="Book" ToRole="Author" />
+        </EntityType>
+        <EntityType Name="BookLog">
+          <Key>
+            <PropertyRef Name="Book_event_id" />
+          </Key>
+          <Property Name="Book_event_id" Type="Int32" Nullable="false" />
+          <Property Name="Serial_item_id" Type="Int32" />
+          <Property Name="Location_id" Type="Int32" />
+          <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Time_stamp" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Isbn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Item_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+          <Property Name="Work_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Employee_User" FromRole="Employee" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Fine">
+          <Key>
+            <PropertyRef Name="Fine_id" />
+          </Key>
+          <Property Name="Fine_id" Type="Int32" Nullable="false" />
+          <Property Name="Member_id" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Serial_item_id" Type="Int32" />
+          <Property Name="Reason" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Fine_Member" FromRole="Fine" ToRole="Member" />
+          <NavigationProperty Name="SerialItem" Relationship="Self.FK_Fine_SerialItem" FromRole="Fine" ToRole="SerialItem" />
+        </EntityType>
+        <EntityType Name="InsideReservation">
+          <Key>
+            <PropertyRef Name="Reserve_id" />
+          </Key>
+          <Property Name="Reserve_id" Type="Int32" Nullable="false" />
+          <Property Name="Serial_item_id" Type="Int32" Nullable="false" />
+          <Property Name="Batch_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Reservation" Relationship="Self.FK_InsideReservation_Reservation" FromRole="InsideReservation" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Item_id" />
+          </Key>
+          <Property Name="Item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item_type" Type="Int32" Nullable="false" />
+          <Property Name="Subject" Type="Int32" />
+          <Property Name="Create_time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Book_Item" FromRole="Item" ToRole="Book" />
+          <NavigationProperty Name="ItemStatu" Relationship="Self.FK_ItemStatus_Item" FromRole="Item" ToRole="ItemStatus" />
+          <NavigationProperty Name="SerialItem" Relationship="Self.FK_SerialItem_Item" FromRole="Item" ToRole="SerialItem" />
+          <NavigationProperty Name="WishList" Relationship="Self.FK_WishList_Item" FromRole="Item" ToRole="WishList" />
+        </EntityType>
+        <EntityType Name="ItemStatu">
+          <Key>
+            <PropertyRef Name="Item_id" />
+          </Key>
+          <Property Name="Item_id" Type="Int32" Nullable="false" />
+          <Property Name="Total_copy" Type="Int16" Nullable="false" />
+          <Property Name="Location_id" Type="Int32" />
+          <Property Name="Reserved_copy" Type="Int16" />
+          <Property Name="Missing_copy" Type="Int16" />
+          <Property Name="Damaged_copy" Type="Int16" />
+          <Property Name="Checkout_copy" Type="Int16" />
+          <Property Name="Can_loan_out" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_ItemStatus_Item" FromRole="ItemStatus" ToRole="Item" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_ItemStatus_Location" FromRole="ItemStatus" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Library">
+          <Key>
+            <PropertyRef Name="Member_id" />
+          </Key>
+          <Property Name="Member_id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Library_Member" FromRole="Library" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Loan_Rule">
+          <Key>
+            <PropertyRef Name="Loan_rule_id" />
+          </Key>
+          <Property Name="Loan_rule_id" Type="Int32" Nullable="false" />
+          <Property Name="Max_loan_book" Type="Int16" Nullable="false" />
+          <Property Name="Max_loan_day" Type="Int16" Nullable="false" />
+          <Property Name="Grace_day" Type="Int16" Nullable="false" />
+          <Property Name="Notification_day" Type="Int16" Nullable="false" />
+          <Property Name="Mail_choice" Type="Int16" />
+          <NavigationProperty Name="NormalMembers" Relationship="Self.FK_NormalMember_Loan_Rule" FromRole="Loan_Rule" ToRole="NormalMember" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Location_id" />
+          </Key>
+          <Property Name="Location_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_no" Type="Int32" Nullable="false" />
+          <Property Name="Shelf_no" Type="Int32" Nullable="false" />
+          <Property Name="X" Type="Int32" Nullable="false" />
+          <Property Name="Y" Type="Int32" Nullable="false" />
+          <Property Name="Location_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ItemStatus" Relationship="Self.FK_ItemStatus_Location" FromRole="Location" ToRole="ItemStatus" />
+          <NavigationProperty Name="SerialItems" Relationship="Self.FK_SerialItem_Location" FromRole="Location" ToRole="SerialItem" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Member_id" />
+          </Key>
+          <Property Name="Member_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Post_code" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Fines" Relationship="Self.FK_Fine_Member" FromRole="Member" ToRole="Fine" />
+          <NavigationProperty Name="Library" Relationship="Self.FK_Library_Member" FromRole="Member" ToRole="Library" />
+          <NavigationProperty Name="NormalMember" Relationship="Self.FK_NormalMember_Member" FromRole="Member" ToRole="NormalMember" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Member" FromRole="Member" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="MemberCampusAddress">
+          <Key>
+            <PropertyRef Name="Member_id" />
+          </Key>
+          <Property Name="Member_id" Type="Int32" Nullable="false" />
+          <Property Name="Campus_Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="NormalMember" Relationship="Self.FK_MemberCampusAddress_NormalMember" FromRole="MemberCampusAddress" ToRole="NormalMember" />
+        </EntityType>
+        <EntityType Name="MemberCard">
+          <Key>
+            <PropertyRef Name="Member_card_id" />
+          </Key>
+          <Property Name="Member_card_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Member_id" Type="Int32" Nullable="false" />
+          <Property Name="Expired_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Create_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="NormalMember">
+          <Key>
+            <PropertyRef Name="Member_id" />
+          </Key>
+          <Property Name="Member_id" Type="Int32" Nullable="false" />
+          <Property Name="Ssn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="First_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Member_type" Type="Int32" Nullable="false" />
+          <Property Name="Loan_rule_id" Type="Int32" />
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Loan_Rule" Relationship="Self.FK_NormalMember_Loan_Rule" FromRole="NormalMember" ToRole="Loan_Rule" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_NormalMember_Member" FromRole="NormalMember" ToRole="Member" />
+          <NavigationProperty Name="MemberCampusAddress" Relationship="Self.FK_MemberCampusAddress_NormalMember" FromRole="NormalMember" ToRole="MemberCampusAddress" />
+          <NavigationProperty Name="User" Relationship="Self.FK_NormalMember_User" FromRole="NormalMember" ToRole="User" />
+        </EntityType>
+        <EntityType Name="OutsideReservation">
+          <Key>
+            <PropertyRef Name="Reserve_id" />
+          </Key>
+          <Property Name="Reserve_id" Type="Int32" Nullable="false" />
+          <Property Name="Library_id" Type="Int32" />
+          <Property Name="External_id" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Batch_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Reservation" Relationship="Self.FK_OutsideReservation_Reservation" FromRole="OutsideReservation" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Permision_id" />
+          </Key>
+          <Property Name="Permision_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserGroups" Relationship="Self.UserGroupPermission" FromRole="Permission" ToRole="UserGroup" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="Reservation_id" />
+          </Key>
+          <Property Name="Reservation_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Member_id" Type="Int32" Nullable="false" />
+          <Property Name="Reserve_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Expected_return_date" Type="DateTime" Precision="0" />
+          <Property Name="Checkout_time" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int16" />
+          <Property Name="Returned_time" Type="DateTime" Precision="3" />
+          <Property Name="Pickup_method" Type="Int16" />
+          <Property Name="Batch_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InsideReservation" Relationship="Self.FK_InsideReservation_Reservation" FromRole="Reservation" ToRole="InsideReservation" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Reservation_Member" FromRole="Reservation" ToRole="Member" />
+          <NavigationProperty Name="OutsideReservation" Relationship="Self.FK_OutsideReservation_Reservation" FromRole="Reservation" ToRole="OutsideReservation" />
+        </EntityType>
+        <EntityType Name="SerialItem">
+          <Key>
+            <PropertyRef Name="Serial_item_id" />
+          </Key>
+          <Property Name="Serial_item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item_id" Type="Int32" Nullable="false" />
+          <Property Name="Serial_item_status" Type="Int16" Nullable="false" />
+          <Property Name="Library_status" Type="Int16" Nullable="false" />
+          <Property Name="Location_id" Type="Int32" />
+          <NavigationProperty Name="Fines" Relationship="Self.FK_Fine_SerialItem" FromRole="SerialItem" ToRole="Fine" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_SerialItem_Item" FromRole="SerialItem" ToRole="Item" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_SerialItem_Location" FromRole="SerialItem" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Create_time" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="User_group_id" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
+          <NavigationProperty Name="NormalMembers" Relationship="Self.FK_NormalMember_User" FromRole="User" ToRole="NormalMember" />
+          <NavigationProperty Name="UserGroup" Relationship="Self.FK_User_UserGroup" FromRole="User" ToRole="UserGroup" />
+        </EntityType>
+        <EntityType Name="UserGroup">
+          <Key>
+            <PropertyRef Name="User_group_id" />
+          </Key>
+          <Property Name="User_group_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_UserGroup" FromRole="UserGroup" ToRole="User" />
+          <NavigationProperty Name="Permissions" Relationship="Self.UserGroupPermission" FromRole="UserGroup" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="WishList">
+          <Key>
+            <PropertyRef Name="Item_id" />
+          </Key>
+          <Property Name="Item_id" Type="Int32" Nullable="false" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Copy" Type="Int32" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_WishList_Item" FromRole="WishList" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK_Book_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fine_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fine_SerialItem">
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="0..1" />
+          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerialItem">
+              <PropertyRef Name="Serial_item_id" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="Serial_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsideReservation_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="InsideReservation" Type="Self.InsideReservation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="Reservation_id" />
+            </Principal>
+            <Dependent Role="InsideReservation">
+              <PropertyRef Name="Reserve_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemStatus_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemStatus" Type="Self.ItemStatu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="ItemStatus">
+              <PropertyRef Name="Item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialItem_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="SerialItem">
+              <PropertyRef Name="Serial_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="WishList" Type="Self.WishList" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="Item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemStatus_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="ItemStatus" Type="Self.ItemStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Location_id" />
+            </Principal>
+            <Dependent Role="ItemStatus">
+              <PropertyRef Name="Location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Library_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Library" Type="Self.Library" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="Library">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NormalMember_Loan_Rule">
+          <End Role="Loan_Rule" Type="Self.Loan_Rule" Multiplicity="0..1" />
+          <End Role="NormalMember" Type="Self.NormalMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loan_Rule">
+              <PropertyRef Name="Loan_rule_id" />
+            </Principal>
+            <Dependent Role="NormalMember">
+              <PropertyRef Name="Loan_rule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialItem_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Location_id" />
+            </Principal>
+            <Dependent Role="SerialItem">
+              <PropertyRef Name="Location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NormalMember_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="NormalMember" Type="Self.NormalMember" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="NormalMember">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberCampusAddress_NormalMember">
+          <End Role="NormalMember" Type="Self.NormalMember" Multiplicity="1" />
+          <End Role="MemberCampusAddress" Type="Self.MemberCampusAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="NormalMember">
+              <PropertyRef Name="Member_id" />
+            </Principal>
+            <Dependent Role="MemberCampusAddress">
+              <PropertyRef Name="Member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NormalMember_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="NormalMember" Type="Self.NormalMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="NormalMember">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutsideReservation_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="OutsideReservation" Type="Self.OutsideReservation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="Reservation_id" />
+            </Principal>
+            <Dependent Role="OutsideReservation">
+              <PropertyRef Name="Reserve_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserGroup">
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroup">
+              <PropertyRef Name="User_group_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="User_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookAuthor">
+          <End Role="Author" Type="Self.Author" Multiplicity="*" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+        </Association>
+        <Association Name="UserGroupPermission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="GLSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Authors" EntityType="Self.Author" />
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="BookLogs" EntityType="Self.BookLog" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Fines" EntityType="Self.Fine" />
+          <EntitySet Name="InsideReservations" EntityType="Self.InsideReservation" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="ItemStatus" EntityType="Self.ItemStatu" />
+          <EntitySet Name="Libraries" EntityType="Self.Library" />
+          <EntitySet Name="Loan_Rule" EntityType="Self.Loan_Rule" />
+          <EntitySet Name="Locations" EntityType="Self.Location" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="MemberCampusAddresses" EntityType="Self.MemberCampusAddress" />
+          <EntitySet Name="MemberCards" EntityType="Self.MemberCard" />
+          <EntitySet Name="NormalMembers" EntityType="Self.NormalMember" />
+          <EntitySet Name="OutsideReservations" EntityType="Self.OutsideReservation" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+          <EntitySet Name="SerialItems" EntityType="Self.SerialItem" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
+          <EntitySet Name="WishLists" EntityType="Self.WishList" />
+          <AssociationSet Name="FK_Book_Item" Association="Self.FK_Book_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fine_Member" Association="Self.FK_Fine_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Fine" EntitySet="Fines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fine_SerialItem" Association="Self.FK_Fine_SerialItem">
+            <End Role="SerialItem" EntitySet="SerialItems" />
+            <End Role="Fine" EntitySet="Fines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InsideReservation_Reservation" Association="Self.FK_InsideReservation_Reservation">
+            <End Role="Reservation" EntitySet="Reservations" />
+            <End Role="InsideReservation" EntitySet="InsideReservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemStatus_Item" Association="Self.FK_ItemStatus_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialItem_Item" Association="Self.FK_SerialItem_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="SerialItem" EntitySet="SerialItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Item" Association="Self.FK_WishList_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="WishList" EntitySet="WishLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemStatus_Location" Association="Self.FK_ItemStatus_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Library_Member" Association="Self.FK_Library_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Library" EntitySet="Libraries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NormalMember_Loan_Rule" Association="Self.FK_NormalMember_Loan_Rule">
+            <End Role="Loan_Rule" EntitySet="Loan_Rule" />
+            <End Role="NormalMember" EntitySet="NormalMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialItem_Location" Association="Self.FK_SerialItem_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="SerialItem" EntitySet="SerialItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NormalMember_Member" Association="Self.FK_NormalMember_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="NormalMember" EntitySet="NormalMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Member" Association="Self.FK_Reservation_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberCampusAddress_NormalMember" Association="Self.FK_MemberCampusAddress_NormalMember">
+            <End Role="NormalMember" EntitySet="NormalMembers" />
+            <End Role="MemberCampusAddress" EntitySet="MemberCampusAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NormalMember_User" Association="Self.FK_NormalMember_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="NormalMember" EntitySet="NormalMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutsideReservation_Reservation" Association="Self.FK_OutsideReservation_Reservation">
+            <End Role="Reservation" EntitySet="Reservations" />
+            <End Role="OutsideReservation" EntitySet="OutsideReservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserGroup" Association="Self.FK_User_UserGroup">
+            <End Role="UserGroup" EntitySet="UserGroups" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="BookAuthor" Association="Self.BookAuthor">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="UserGroupPermission" Association="Self.UserGroupPermission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="UserGroup" EntitySet="UserGroups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GlsEntityModelStoreContainer" CdmEntityContainer="GLSEntities">
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="GlsEntityModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Author_id" ColumnName="Author_id" />
+                <ScalarProperty Name="First_name" ColumnName="First_name" />
+                <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="GlsEntityModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Item_id" ColumnName="Item_id" />
+                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Binding" ColumnName="Binding" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Price_unit" ColumnName="Price_unit" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Publish_time" ColumnName="Publish_time" />
+                <ScalarProperty Name="Page" ColumnName="Page" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Create_time" ColumnName="Create_time" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookLogs">
+            <EntityTypeMapping TypeName="GlsEntityModel.BookLog">
+              <MappingFragment StoreEntitySet="BookLog">
+                <ScalarProperty Name="Book_event_id" ColumnName="Book_event_id" />
+                <ScalarProperty Name="Serial_item_id" ColumnName="Serial_item_id" />
+                <ScalarProperty Name="Location_id" ColumnName="Location_id" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Time_stamp" ColumnName="Time_stamp" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+                <ScalarProperty Name="Item_id" ColumnName="Item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="GlsEntityModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Work_phone" ColumnName="Work_phone" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fines">
+            <EntityTypeMapping TypeName="GlsEntityModel.Fine">
+              <MappingFragment StoreEntitySet="Fine">
+                <ScalarProperty Name="Fine_id" ColumnName="Fine_id" />
+                <ScalarProperty Name="Member_id" ColumnName="Member_id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="Serial_item_id" ColumnName="Serial_item_id" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InsideReservations">
+            <EntityTypeMapping TypeName="GlsEntityModel.InsideReservation">
+              <MappingFragment StoreEntitySet="InsideReservation">
+                <ScalarProperty Name="Reserve_id" ColumnName="Reserve_id" />
+                <ScalarProperty Name="Serial_item_id" ColumnName="Serial_item_id" />
+                <ScalarProperty Name="Batch_id" ColumnName="Batch_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="GlsEntityModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="Item_id" ColumnName="Item_id" />
+                <ScalarProperty Name="Item_type" ColumnName="Item_type" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Create_time" ColumnName="Create_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemStatus">
+            <EntityTypeMapping TypeName="GlsEntityModel.ItemStatu">
+              <MappingFragment StoreEntitySet="ItemStatus">
+                <ScalarProperty Name="Item_id" ColumnName="Item_id" />
+                <ScalarProperty Name="Total_copy" ColumnName="Total_copy" />
+                <ScalarProperty Name="Location_id" ColumnName="Location_id" />
+                <ScalarProperty Name="Reserved_copy" ColumnName="Reserved_copy" />
+                <ScalarProperty Name="Missing_copy" ColumnName="Missing_copy" />
+                <ScalarProperty Name="Damaged_copy" ColumnName="Damaged_copy" />
+                <ScalarProperty Name="Checkout_copy" ColumnName="Checkout_copy" />
+                <ScalarProperty Name="Can_loan_out" ColumnName="Can_loan_out" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libraries">
+            <EntityTypeMapping TypeName="GlsEntityModel.Library">
+              <MappingFragment StoreEntitySet="Library">
+                <ScalarProperty Name="Member_id" ColumnName="Member_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loan_Rule">
+            <EntityTypeMapping TypeName="GlsEntityModel.Loan_Rule">
+              <MappingFragment StoreEntitySet="Loan_Rule">
+                <ScalarProperty Name="Loan_rule_id" ColumnName="Loan_rule_id" />
+                <ScalarProperty Name="Max_loan_book" ColumnName="Max_loan_book" />
+                <ScalarProperty Name="Max_loan_day" ColumnName="Max_loan_day" />
+                <ScalarProperty Name="Grace_day" ColumnName="Grace_day" />
+                <ScalarProperty Name="Notification_day" ColumnName="Notification_day" />
+                <ScalarProperty Name="Mail_choice" ColumnName="Mail_choice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="GlsEntityModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Location_id" ColumnName="Location_id" />
+                <ScalarProperty Name="Room_no" ColumnName="Room_no" />
+                <ScalarProperty Name="Shelf_no" ColumnName="Shelf_no" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Location_code" ColumnName="Location_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="GlsEntityModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="Member_id" ColumnName="Member_id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Post_code" ColumnName="Post_code" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberCampusAddresses">
+            <EntityTypeMapping TypeName="GlsEntityModel.MemberCampusAddress">
+              <MappingFragment StoreEntitySet="MemberCampusAddress">
+                <ScalarProperty Name="Member_id" ColumnName="Member_id" />
+                <ScalarProperty Name="Campus_Address" ColumnName="Campus_Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberCards">
+            <EntityTypeMapping TypeName="GlsEntityModel.MemberCard">
+              <MappingFragment StoreEntitySet="MemberCard">
+                <ScalarProperty Name="Member_card_id" ColumnName="Member_card_id" />
+                <ScalarProperty Name="Member_id" ColumnName="Member_id" />
+                <ScalarProperty Name="Expired_date" ColumnName="Expired_date" />
+                <ScalarProperty Name="Create_date" ColumnName="Create_date" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NormalMembers">
+            <EntityTypeMapping TypeName="GlsEntityModel.NormalMember">
+              <MappingFragment StoreEntitySet="NormalMember">
+                <ScalarProperty Name="Member_id" ColumnName="Member_id" />
+                <ScalarProperty Name="Ssn" ColumnName="Ssn" />
+                <ScalarProperty Name="First_name" ColumnName="First_name" />
+                <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+                <ScalarProperty Name="Member_type" ColumnName="Member_type" />
+                <ScalarProperty Name="Loan_rule_id" ColumnName="Loan_rule_id" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutsideReservations">
+            <EntityTypeMapping TypeName="GlsEntityModel.OutsideReservation">
+              <MappingFragment StoreEntitySet="OutsideReservation">
+                <ScalarProperty Name="Reserve_id" ColumnName="Reserve_id" />
+                <ScalarProperty Name="Library_id" ColumnName="Library_id" />
+                <ScalarProperty Name="External_id" ColumnName="External_id" />
+                <ScalarProperty Name="Batch_id" ColumnName="Batch_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="GlsEntityModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="Permision_id" ColumnName="Permision_id" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="GlsEntityModel.Reservation">
+              <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="Reservation_id" ColumnName="Reservation_id" />
+                <ScalarProperty Name="Member_id" ColumnName="Member_id" />
+                <ScalarProperty Name="Reserve_time" ColumnName="Reserve_time" />
+                <ScalarProperty Name="Expected_return_date" ColumnName="Expected_return_date" />
+                <ScalarProperty Name="Checkout_time" ColumnName="Checkout_time" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Returned_time" ColumnName="Returned_time" />
+                <ScalarProperty Name="Pickup_method" ColumnName="Pickup_method" />
+                <ScalarProperty Name="Batch_id" ColumnName="Batch_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SerialItems">
+            <EntityTypeMapping TypeName="GlsEntityModel.SerialItem">
+              <MappingFragment StoreEntitySet="SerialItem">
+                <ScalarProperty Name="Serial_item_id" ColumnName="Serial_item_id" />
+                <ScalarProperty Name="Item_id" ColumnName="Item_id" />
+                <ScalarProperty Name="Serial_item_status" ColumnName="Serial_item_status" />
+                <ScalarProperty Name="Library_status" ColumnName="Library_status" />
+                <ScalarProperty Name="Location_id" ColumnName="Location_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="GlsEntityModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="GlsEntityModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Create_time" ColumnName="Create_time" />
+                <ScalarProperty Name="User_group_id" ColumnName="User_group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserGroups">
+            <EntityTypeMapping TypeName="GlsEntityModel.UserGroup">
+              <MappingFragment StoreEntitySet="UserGroup">
+                <ScalarProperty Name="User_group_id" ColumnName="User_group_id" />
+                <ScalarProperty Name="Group_name" ColumnName="Group_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WishLists">
+            <EntityTypeMapping TypeName="GlsEntityModel.WishList">
+              <MappingFragment StoreEntitySet="WishList">
+                <ScalarProperty Name="Item_id" ColumnName="Item_id" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BookAuthor" TypeName="GlsEntityModel.BookAuthor" StoreEntitySet="BookAuthor">
+            <EndProperty Name="Author">
+              <ScalarProperty Name="Author_id" ColumnName="Author_id" />
+            </EndProperty>
+            <EndProperty Name="Book">
+              <ScalarProperty Name="Item_id" ColumnName="Item_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserGroupPermission" TypeName="GlsEntityModel.UserGroupPermission" StoreEntitySet="UserGroupPermission">
+            <EndProperty Name="Permission">
+              <ScalarProperty Name="Permision_id" ColumnName="Permision_id" />
+            </EndProperty>
+            <EndProperty Name="UserGroup">
+              <ScalarProperty Name="User_group_id" ColumnName="User_group_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
