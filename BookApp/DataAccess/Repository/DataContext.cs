@@ -20,5 +20,9 @@ namespace BookApp.DataAccess.Repository
 
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User> Members { get; set; }
+        public virtual DbSet<User> UserGroups { get; set; }
+        public virtual DbSet<User> NormalMembers { get; set; }
+        public virtual DbSet<User> Permissons { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace BookApp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Loan_Rule()
         {
-            this.NormalMembers = new HashSet<NormalMember>();
+            this.Members = new HashSet<Member>();
         }
     
         public int Loan_rule_id { get; set; }
@@ -28,6 +28,6 @@ namespace BookApp.Models
         public Nullable<short> Mail_choice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NormalMember> NormalMembers { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace BookApp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GLSEntities : DbContext
+    public partial class GlsEntities : DbContext
     {
-        public GLSEntities()
-            : base("name=GLSEntities")
+        public GlsEntities()
+            : base("name=GlsEntities")
         {
         }
     

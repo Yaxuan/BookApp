@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="GlsEntityModelStoreContainer" CdmEntityContainer="GLSEntities">
+  <EntityContainerMapping StorageEntityContainer="GlsEntityModelStoreContainer" CdmEntityContainer="GlsEntities">
     <EntitySetMapping Name="Authors">
       <EntityTypeMapping TypeName="GlsEntityModel.Author">
         <MappingFragment StoreEntitySet="Author">
@@ -140,6 +140,7 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Post_code" ColumnName="Post_code" />
           <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Loan_rule_id" ColumnName="Loan_rule_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -167,12 +168,8 @@
         <MappingFragment StoreEntitySet="NormalMember">
           <ScalarProperty Name="Member_id" ColumnName="Member_id" />
           <ScalarProperty Name="Ssn" ColumnName="Ssn" />
-          <ScalarProperty Name="First_name" ColumnName="First_name" />
-          <ScalarProperty Name="Last_name" ColumnName="Last_name" />
           <ScalarProperty Name="Member_type" ColumnName="Member_type" />
-          <ScalarProperty Name="Loan_rule_id" ColumnName="Loan_rule_id" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -239,6 +236,9 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Create_time" ColumnName="Create_time" />
           <ScalarProperty Name="User_group_id" ColumnName="User_group_id" />
+          <ScalarProperty Name="FIrst_name" ColumnName="FIrst_name" />
+          <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+          <ScalarProperty Name="Is_Female" ColumnName="Is_Female" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

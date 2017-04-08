@@ -72,8 +72,8 @@ namespace BookApp.DataAccess.Repository
 
         public async Task SaveAsync(TEntity entity)
         {
-            Context.Entry(entity).State = EntityState.Modified;
             Context.Set<TEntity>().Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
 

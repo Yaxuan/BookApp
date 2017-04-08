@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -95,6 +94,10 @@ namespace BookApp.Controllers
                 }
 
                 return Conflict();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError();
             }
 
             return Ok();

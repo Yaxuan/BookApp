@@ -14,18 +14,21 @@ namespace BookApp.Models
     
     public partial class NormalMember
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NormalMember()
+        {
+            this.MemberCards = new HashSet<MemberCard>();
+        }
+    
         public int Member_id { get; set; }
         public string Ssn { get; set; }
-        public string First_name { get; set; }
-        public string Last_name { get; set; }
         public int Member_type { get; set; }
-        public Nullable<int> Loan_rule_id { get; set; }
         public int User_id { get; set; }
-        public string Gender { get; set; }
     
-        public virtual Loan_Rule Loan_Rule { get; set; }
         public virtual Member Member { get; set; }
         public virtual MemberCampusAddress MemberCampusAddress { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MemberCard> MemberCards { get; set; }
         public virtual User User { get; set; }
     }
 }

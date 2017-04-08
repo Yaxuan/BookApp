@@ -19,5 +19,7 @@ namespace BookApp.Models
         public System.DateTime Expired_date { get; set; }
         public System.DateTime Create_date { get; set; }
         public byte[] Photo { get; set; }
+    
+        public virtual NormalMember NormalMember { get; set; }
     }
 }

@@ -25,10 +25,12 @@ namespace BookApp.Models
         public string Address { get; set; }
         public Nullable<int> Post_code { get; set; }
         public string City { get; set; }
+        public Nullable<int> Loan_rule_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fine> Fines { get; set; }
         public virtual Library Library { get; set; }
+        public virtual Loan_Rule Loan_Rule { get; set; }
         public virtual NormalMember NormalMember { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservations { get; set; }

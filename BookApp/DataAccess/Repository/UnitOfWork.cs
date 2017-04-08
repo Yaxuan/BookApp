@@ -11,10 +11,18 @@ namespace BookApp.DataAccess.Repository
             _context = context;
             Books = new BookRepository(_context);
             Users = new UserRepository(_context);
+            Members = new MemberRepository(_context);
+            UserGroups = new UserGroupRepository(_context);
+            Permissions = new PermissionRepository(_context);
+            NormalMembers = new NormalMemberRepository(_context);
         }
 
         public IBookRepository Books { get; }
         public IUserRepository Users { get; }
+        public IMemberRepository Members { get; }
+        public IUserGroupRepository UserGroups { get; }
+        public IPermissionRepository Permissions { get; }
+        public INormalMemberRepository NormalMembers { get; }
 
         public int Complete()
         {

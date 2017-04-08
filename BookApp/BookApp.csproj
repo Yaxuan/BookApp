@@ -201,15 +201,27 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\NormalMemberController.cs" />
+    <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataAccess\Interface\IBookRepository.cs" />
+    <Compile Include="DataAccess\Interface\IMemberRepository.cs" />
+    <Compile Include="DataAccess\Interface\INormalMemberRepository.cs" />
+    <Compile Include="DataAccess\Interface\IPermissionRepository.cs" />
     <Compile Include="DataAccess\Interface\IRepository.cs" />
     <Compile Include="DataAccess\Interface\IContext.cs" />
+    <Compile Include="DataAccess\Interface\IUserGroupRepository.cs" />
     <Compile Include="DataAccess\Interface\IUserRepository.cs" />
     <Compile Include="DataAccess\Repository\BookRepository.cs" />
     <Compile Include="DataAccess\Repository\DataContext.cs" />
+    <Compile Include="DataAccess\Repository\MemberRepository.cs" />
+    <Compile Include="DataAccess\Repository\NormalMemberRepository.cs" />
+    <Compile Include="DataAccess\Repository\PermissionRepository.cs" />
     <Compile Include="DataAccess\Repository\Repository.cs" />
     <Compile Include="DataAccess\Repository\UnitOfWork.cs" />
+    <Compile Include="DataAccess\Repository\UserGroupRepository.cs" />
     <Compile Include="DataAccess\Repository\UserRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -25,6 +25,9 @@ namespace BookApp.Models
         public string Password { get; set; }
         public System.DateTime Create_time { get; set; }
         public short User_group_id { get; set; }
+        public string FIrst_name { get; set; }
+        public string Last_name { get; set; }
+        public bool Is_Female { get; set; }
     
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
