@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -59,11 +60,19 @@ namespace BookApp.Controllers
             try
             {
                 user.Create_time = DateTime.Now;
+
+                var users = await _context.Users.FindAsync(u => u.User_name == user.User_name);
+
+                if (users.Any())
+                {
+                    return Content(HttpStatusCode.Conflict, "User name is used");
+                }
+
                 await _context.Users.AddAsync(user);
             }
             catch (Exception e)
             {
-                return InternalServerError();
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
 
             return CreatedAtRoute("DefaultApi", new { id = user.User_id }, user);

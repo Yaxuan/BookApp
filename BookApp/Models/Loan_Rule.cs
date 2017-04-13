@@ -26,6 +26,7 @@ namespace BookApp.Models
         public short Grace_day { get; set; }
         public short Notification_day { get; set; }
         public Nullable<short> Mail_choice { get; set; }
+        public string Rule_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Member> Members { get; set; }
