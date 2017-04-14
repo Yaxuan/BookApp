@@ -24,32 +24,47 @@ namespace BookApp.Controllers
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> GetUsersAsync()
         {
-            var users = await _context.Users.GetAllAsync();
-
-            if (users == null)
+            try
             {
-                return NotFound();
+                var users = await _context.Users.GetAllAsync();
 
+                if (users == null)
+                {
+                    return NotFound();
+
+                }
+
+                return Ok(users);
             }
-
-            return Ok(users);
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
         }
 
         // GET: api/Users/5
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> GetAsync(int id)
         {
-            User user = await GetUserAsync(id);
-            if (user == null)
+            try
             {
-                return NotFound();
-            }
+                User user = await GetUserAsync(id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(user);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
         }
 
         // POST: api/Users
         [ResponseType(typeof(User))]
+        [Route("api/users")]
         public async Task<IHttpActionResult> Post(User user)
         {
             if (!ModelState.IsValid)
@@ -106,7 +121,7 @@ namespace BookApp.Controllers
             }
             catch (Exception e)
             {
-                return InternalServerError();
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
 
             return Ok();
@@ -127,7 +142,7 @@ namespace BookApp.Controllers
             }
             catch (Exception e)
             {
-                return InternalServerError();
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
 
             return Ok();
@@ -150,8 +165,40 @@ namespace BookApp.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/users/Login")]
+        [ResponseType(typeof(User))]
+        public async Task<IHttpActionResult> UserExist(User user)
+        {
+            if (string.IsNullOrEmpty(user.User_name) || string.IsNullOrEmpty(user.Password))
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var users = (await _context.Users.FindAsync(u => u.User_name == user.User_name && user.Password == u.Password)).ToList();
+
+                if (users.Count == 1)
+                {
+                    return Content(HttpStatusCode.Found, users.First());
+                }
+                else if (users.Count == 0)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Ambiguous, "More than one user is found");
+                }
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 

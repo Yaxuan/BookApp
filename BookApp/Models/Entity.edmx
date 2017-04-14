@@ -233,6 +233,7 @@
           <Property Name="FIrst_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Is_Female" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -916,6 +917,7 @@
           <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="NormalMembers" Relationship="Self.FK_NormalMember_User" FromRole="User" ToRole="NormalMember" />
           <NavigationProperty Name="UserGroup" Relationship="Self.FK_User_UserGroup" FromRole="User" ToRole="UserGroup" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -1518,6 +1520,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="GlsEntityModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="User_name" ColumnName="User_name" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

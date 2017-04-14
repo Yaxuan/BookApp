@@ -6,7 +6,7 @@ using Foolproof;
 
 namespace BookClient.ViewModels
 {
-    public class UserAccount
+    public class UserAccountViewModel
     {
         [Required(ErrorMessage = "User name is required.")]
         [Display(Name = "User Name")]
@@ -71,5 +71,8 @@ namespace BookClient.ViewModels
         public List<MailChoiceEnum> MailChoices { get; set; }
 
         public MailChoiceEnum SelectedMailChoice { get; set; } = MailChoiceEnum.HomeAddress;
+
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
     }
 }

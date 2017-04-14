@@ -20,8 +20,8 @@ namespace BookClient.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Register(UserAccount userAccount)
+        [HttpPost]        
+        public async Task<ActionResult> Register(UserAccountViewModel userAccountViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -31,12 +31,13 @@ namespace BookClient.Controllers
                 User user = new User
                 {
                     Create_time = DateTime.Now,
-                    User_name = userAccount.UserName,
-                    FIrst_name = userAccount.FirstName,
-                    Last_name = userAccount.LastName,
+                    User_name = userAccountViewModel.UserName,
+                    FIrst_name = userAccountViewModel.FirstName,
+                    Last_name = userAccountViewModel.LastName,
                     User_group_id = 1,
-                    Is_Female = userAccount.IsFemale,
-                    Password = userAccount.Password
+                    Is_Female = userAccountViewModel.IsFemale,
+                    Password = userAccountViewModel.Password,
+                    Email = userAccountViewModel.Email
                 };
 
                 try
@@ -50,18 +51,18 @@ namespace BookClient.Controllers
 
                         //Create member
 
-                        Member member = new Member { Address = userAccount.HomeAddress, City = userAccount.City, Post_code = userAccount.PostCode, Loan_rule_id = 1 };
+                        Member member = new Member { Address = userAccountViewModel.HomeAddress, City = userAccountViewModel.City, Post_code = userAccountViewModel.PostCode, Loan_rule_id = 1 };
                         var memberCtrResponse = await client.PostAsJsonAsync("api/member", member).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                         var newMember = await memberCtrResponse.Content.ReadAsAsync<Member>();
 
                         //Create normal member
-                        NormalMember normalMember = new NormalMember { Ssn = userAccount.Ssn, User_id = newUser.User_id, Member_type = (int)MemberTypeEnum.Normal, Member_id = newMember.Member_id };
+                        NormalMember normalMember = new NormalMember { Ssn = userAccountViewModel.Ssn, User_id = newUser.User_id, Member_type = (int)MemberTypeEnum.Normal, Member_id = newMember.Member_id };
 
                         await client.PostAsJsonAsync("api/NormalMember", normalMember).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
 
                         ModelState.Clear();
 
-                        ViewBag.Message = userAccount.UserName + " is registered successfully.";
+                        ViewBag.Message = userAccountViewModel.UserName + " is registered successfully.";
                     }
                     else
                     {

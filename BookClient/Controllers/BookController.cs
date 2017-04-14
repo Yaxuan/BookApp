@@ -59,5 +59,15 @@ namespace BookClient.Controllers
             //TODO create a new view and show that
             return RedirectToAction("Index", "Book", id);
         }
+
+        public ActionResult Edit(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

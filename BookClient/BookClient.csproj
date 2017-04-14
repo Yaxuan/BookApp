@@ -200,18 +200,24 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\BookAppUri.cs" />
+    <Compile Include="Enum\EmployeePositionEnum.cs" />
     <Compile Include="Enum\MailChoiceEnum.cs" />
     <Compile Include="Enum\MemberTypeEnum.cs" />
+    <Compile Include="Enum\PermissionEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\LoanRule.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\NormalMember.cs" />
+    <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\UserAccount.cs" />
+    <Compile Include="ViewModels\UserAccountViewModel.cs" />
+    <Compile Include="ViewModels\UserLoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -224,8 +230,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Book\Index.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Register\Register.cshtml" />
+    <Content Include="Views\Login\LoggedIn.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

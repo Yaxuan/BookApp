@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BookClient.Models
 {
@@ -12,5 +13,11 @@ namespace BookClient.Models
         public string FIrst_name { get; set; }
         public string Last_name { get; set; }
         public bool Is_Female { get; set; }
+        public string Email { get; set; }
+
+        public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NormalMember> NormalMembers { get; set; }
+        public virtual UserGroup UserGroup { get; set; }
     }
 }

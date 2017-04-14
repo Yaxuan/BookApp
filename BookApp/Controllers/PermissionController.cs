@@ -40,14 +40,39 @@ namespace BookApp.Controllers
         [ResponseType(typeof(Permission))]
         public async Task<IHttpActionResult> GetAsync(int id)
         {
-            Permission user = await GetPermissionAsync(id);
-            if (user == null)
+            Permission permission = await GetPermissionAsync(id);
+            if (permission == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(permission);
         }
+
+        // GET: api/Permissions/UserGroupId
+        [HttpGet]
+        [ResponseType(typeof(Permission))]
+        [Route("api/permissions/usergroupid/{id}")]
+        public async Task<IHttpActionResult> GetUserGroupPermissionsAsync(int id)
+        {
+            try
+            {
+                var permissions = (await _context.Permissions.FindAsync(p => p.UserGroups.Any(g => g.User_group_id == id))).ToList();
+
+                if (!permissions.Any())
+                {
+                    return NotFound();
+                }
+
+                return Ok(permissions);
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+           
+        }
+
 
         // POST: api/Permissions
         [ResponseType(typeof(Permission))]
