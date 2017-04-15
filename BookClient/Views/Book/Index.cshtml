@@ -1,90 +1,63 @@
 ﻿@using BookClient.Enum
-@model IEnumerable<BookClient.Models.Book>
+@model BookClient.ViewModels.SearchBookViewModel
 
 @{
-    ViewBag.Title = "Book";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .bookheader {
+        font-size: large;
+        color: #073d78;
+        font-weight: bold;
+    }
+
+    .bookauthor {
+        font-style: italic;
+    }
+</style>
+
+<h2></h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            @Html.EditorFor(model => model.SearchField, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "Search title, author ect." } })
+            <div class="col-md-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
 }
 
 <hr />
 
 
-<table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Isbn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Page)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Language)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PriceUnit)
-            </th>
-            <th>
-                Detail
-            </th>
-            
+@foreach (var book in Model.Books)
+{
+    <div class="bookheader">@book.Title</div>
 
-            @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
-            {
-                <th>
-                    Edit
-                </th>
-                <th>
-                    Delete
-                </th>
-            }
-            <th></th>
-        </tr>
+    <div class="bookauthor text-muted">@string.Join(",", book.Authors.Select(a => a.AuthorName).ToArray())</div>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Isbn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Page)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Language)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PriceUnit)
-            </td>
-            <td>                
-                @Html.ActionLink("Details", "Details", new { @id = item.ItemId }) |              
-            </td>
-            
-            @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
-            {
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { @id = item.ItemId }) |
-                </td>
-                <td>
-                    @Html.ActionLink("Delete", "Delete", new { @id = item.ItemId }) |
-                </td>
-            }
+    <div class="text-muted">@book.Publish_time</div>
 
-        </tr>
-    }
+    <div>
+        @Html.ActionLink("Detail", "Details", new { @id = book.Item_id })
 
-    </table>
+        @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
+        {
+            @Html.ActionLink("Edit", "Edit", new { @id = book.Item_id })
+             @Html.ActionLink("Delete", "Delete", new { @id = book.Item_id })
 
-@*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        }
+    </div>
+    <hr />
+}
 
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

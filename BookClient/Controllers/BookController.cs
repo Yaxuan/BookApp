@@ -4,45 +4,47 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BookClient.Models;
+using BookClient.ViewModels;
 
 namespace BookClient.Controllers
 {
     public class BookController : Controller
     {
         // GET: Book
-        public ViewResult Index()
+        public ActionResult Index()
         {
+            
             var bookList = new List<Book>();
-            var book = new Book()
+            var book = new Book
             {
                 Binding = 1,
-                CreateTime = DateTime.Now,
+                Create_time = DateTime.Now,
                 Description = "This is a good book.",
                 Edition = "4",
                 Isbn = "1000342356",
-                ItemId = 1,
+                Item_id = 1,
                 Language = 1,
                 Page = 400,
                 Price = 500,
-                PriceUnit = "kroner",
-                PublishTime = DateTime.Now,
+                Price_unit = "kroner",
+                Publish_time = DateTime.Now,
                 Publisher = "Aarhus university",
                 Title = "Mathematics"
             };
 
-            var book2 = new Book()
+            var book2 = new Book
             {
                 Binding = 1,
-                CreateTime = DateTime.Now,
+                Create_time = DateTime.Now,
                 Description = "This is another good book.",
                 Edition = "1",
                 Isbn = "1000342357",
-                ItemId = 2,
+                Item_id = 2,
                 Language = 1,
                 Page = 200,
                 Price = 400,
-                PriceUnit = "kroner",
-                PublishTime = DateTime.Now,
+                Price_unit = "kroner",
+                Publish_time = DateTime.Now,
                 Publisher = "Aarhus university",
                 Title = "Clinik"
             };
@@ -50,7 +52,8 @@ namespace BookClient.Controllers
             bookList.Add(book);
             bookList.Add(book2);
 
-            return View(bookList);
+            SearchBookViewModel books = new SearchBookViewModel() {Books = bookList};
+            return View(books);
         }
 
 
