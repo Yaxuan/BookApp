@@ -233,7 +233,7 @@
           <Property Name="FIrst_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Is_Female" Type="bit" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -512,7 +512,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserGroupPermission_UserGroup">
-          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="1" />
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserGroupPermission" Type="Self.UserGroupPermission" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserGroup">
@@ -917,7 +919,7 @@
           <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="NormalMembers" Relationship="Self.FK_NormalMember_User" FromRole="User" ToRole="NormalMember" />
           <NavigationProperty Name="UserGroup" Relationship="Self.FK_User_UserGroup" FromRole="User" ToRole="UserGroup" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>

@@ -72,6 +72,7 @@ namespace BookClient.ViewModels
 
         public MailChoiceEnum SelectedMailChoice { get; set; } = MailChoiceEnum.HomeAddress;
 
+        [RequiredIfNotEmpty(nameof(Email))]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
     }

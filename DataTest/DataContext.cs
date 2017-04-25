@@ -9,7 +9,7 @@ namespace DataTest
 {
     public class DataContext:DbContext
     {
-        public DataContext() : base("name=GLSEntities")
+        public DataContext() : base("name=GLSEntities1")
         {
             
         }

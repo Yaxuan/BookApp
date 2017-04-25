@@ -6,12 +6,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DataTest
 {
     /// <summary>
-    /// Summary description for UserMemberDataTest
+    /// Summary description for DataTest
     /// </summary>
     [TestClass]
-    public class UserMemberDataTest
+    public class DataTest
     {
-        public UserMemberDataTest()
+        public DataTest()
         {
             //
             // TODO: Add constructor logic here
@@ -61,10 +61,33 @@ namespace DataTest
 
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod()
         {
-            UserMemberDataGen.TearDownSimpleUserMemberData();
-            UserMemberDataGen.GenerateSimpleUserMemberData();
+            var dataGen = new DataGeneration();
+            dataGen.TearDownData();
+
+            //Default: member:16000, employee:10, book:100000, reservation: 100 * 0.2
+            dataGen.GenerateData(16000, 10, 100000);
         }
+
+
+        [TestMethod]
+        public void CreateMoreReservations()
+        {
+            var dataGen = new DataGeneration();
+            dataGen.GenerateReservation();
+        }
+
+        [TestMethod]
+        public void CreateNormalMember()
+        {
+            var dataGen = new DataGeneration();
+            dataGen.GenerateNormalMember();
+        }
+
+        //context.Database.ExecuteSqlCommand( 
+        //                    @"UPDATE Blogs SET Rating = 5" + 
+        //                        " WHERE Name LIKE '%Entity Framework%'" 
+        //                    ); 
     }
 }

@@ -75,6 +75,7 @@
       <DependentUpon>GlsEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="DataContext.cs" />
+    <Compile Include="Data\NameList.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>GlsEntity.tt</DependentUpon>
     </Compile>
@@ -132,6 +133,9 @@
     <Compile Include="Permission.cs">
       <DependentUpon>GlsEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataGeneration.cs" />
+    <Compile Include="DataTest.cs" />
     <Compile Include="Reservation.cs">
       <DependentUpon>GlsEntity.tt</DependentUpon>
     </Compile>
@@ -141,31 +145,29 @@
     <Compile Include="sysdiagram.cs">
       <DependentUpon>GlsEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs">
       <DependentUpon>GlsEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="UserGroup.cs">
       <DependentUpon>GlsEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserMemberDataGen.cs" />
-    <Compile Include="UserMemberDataTest.cs" />
     <Compile Include="WishList.cs">
       <DependentUpon>GlsEntity.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="GlsEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GlsEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="GlsEntity.edmx.diagram">
       <DependentUpon>GlsEntity.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlsEntity.Context.tt">
@@ -178,9 +180,6 @@
       <DependentUpon>GlsEntity.edmx</DependentUpon>
       <LastGenOutput>GlsEntity.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

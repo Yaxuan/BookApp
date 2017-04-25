@@ -13,10 +13,10 @@ namespace DataTest
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GLSEntities : DbContext
+    public partial class GLSEntities1 : DbContext
     {
-        public GLSEntities()
-            : base("name=GLSEntities")
+        public GLSEntities1()
+            : base("name=GLSEntities1")
         {
         }
     

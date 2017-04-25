@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GLSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GLSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="Author_id" />
@@ -31,7 +31,6 @@
           <Property Name="Publish_time" Type="date" />
           <Property Name="Page" Type="int" />
           <Property Name="Image" Type="image" />
-          <Property Name="Create_time" Type="datetime" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BookAuthor">
@@ -116,12 +115,13 @@
           <Key>
             <PropertyRef Name="Loan_rule_id" />
           </Key>
-          <Property Name="Loan_rule_id" Type="int" Nullable="false" />
+          <Property Name="Loan_rule_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Max_loan_book" Type="smallint" Nullable="false" />
           <Property Name="Max_loan_day" Type="smallint" Nullable="false" />
           <Property Name="Grace_day" Type="smallint" Nullable="false" />
           <Property Name="Notification_day" Type="smallint" Nullable="false" />
           <Property Name="Mail_choice" Type="smallint" />
+          <Property Name="Rule_name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -232,6 +232,7 @@
           <Property Name="FIrst_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Is_Female" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -282,7 +283,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BookAuthor_Book">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="BookAuthor" Type="Self.BookAuthor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
@@ -463,13 +466,13 @@
         </Association>
         <Association Name="FK_SerialItem_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
-          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="0..1" />
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Item">
               <PropertyRef Name="Item_id" />
             </Principal>
             <Dependent Role="SerialItem">
-              <PropertyRef Name="Serial_item_id" />
+              <PropertyRef Name="Item_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -510,7 +513,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserGroupPermission_UserGroup">
-          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="1" />
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserGroupPermission" Type="Self.UserGroupPermission" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserGroup">
@@ -652,8 +657,7 @@
             <End Role="WishList" EntitySet="WishList" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GLSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -684,7 +688,6 @@
           <Property Name="Publish_time" Type="DateTime" Precision="0" />
           <Property Name="Page" Type="Int32" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Create_time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Item" Relationship="Self.FK_Book_Item" FromRole="Book" ToRole="Item" />
           <NavigationProperty Name="Authors" Relationship="Self.BookAuthor" FromRole="Book" ToRole="Author" />
@@ -744,7 +747,7 @@
           <Property Name="Create_time" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Book" Relationship="Self.FK_Book_Item" FromRole="Item" ToRole="Book" />
           <NavigationProperty Name="ItemStatu" Relationship="Self.FK_ItemStatus_Item" FromRole="Item" ToRole="ItemStatus" />
-          <NavigationProperty Name="SerialItem" Relationship="Self.FK_SerialItem_Item" FromRole="Item" ToRole="SerialItem" />
+          <NavigationProperty Name="SerialItems" Relationship="Self.FK_SerialItem_Item" FromRole="Item" ToRole="SerialItem" />
           <NavigationProperty Name="WishList" Relationship="Self.FK_WishList_Item" FromRole="Item" ToRole="WishList" />
         </EntityType>
         <EntityType Name="ItemStatu">
@@ -780,6 +783,7 @@
           <Property Name="Grace_day" Type="Int16" Nullable="false" />
           <Property Name="Notification_day" Type="Int16" Nullable="false" />
           <Property Name="Mail_choice" Type="Int16" />
+          <Property Name="Rule_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Members" Relationship="Self.FK_Member_Loan_Rule" FromRole="Loan_Rule" ToRole="Member" />
         </EntityType>
         <EntityType Name="Location">
@@ -912,6 +916,7 @@
           <Property Name="FIrst_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Is_Female" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="NormalMembers" Relationship="Self.FK_NormalMember_User" FromRole="User" ToRole="NormalMember" />
           <NavigationProperty Name="UserGroup" Relationship="Self.FK_User_UserGroup" FromRole="User" ToRole="UserGroup" />
@@ -1009,13 +1014,13 @@
         </Association>
         <Association Name="FK_SerialItem_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
-          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="0..1" />
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Item">
               <PropertyRef Name="Item_id" />
             </Principal>
             <Dependent Role="SerialItem">
-              <PropertyRef Name="Serial_item_id" />
+              <PropertyRef Name="Item_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1171,7 +1176,7 @@
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
           <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="GLSEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GLSEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Author" />
           <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="BookLogs" EntityType="Self.BookLog" />
@@ -1285,7 +1290,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GLSModelStoreContainer" CdmEntityContainer="GLSEntities">
+        <EntityContainerMapping StorageEntityContainer="GLSModelStoreContainer" CdmEntityContainer="GLSEntities1">
           <EntitySetMapping Name="Authors">
             <EntityTypeMapping TypeName="GLSModel.Author">
               <MappingFragment StoreEntitySet="Author">
@@ -1312,7 +1317,6 @@
                 <ScalarProperty Name="Publish_time" ColumnName="Publish_time" />
                 <ScalarProperty Name="Page" ColumnName="Page" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Create_time" ColumnName="Create_time" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1403,6 +1407,7 @@
                 <ScalarProperty Name="Grace_day" ColumnName="Grace_day" />
                 <ScalarProperty Name="Notification_day" ColumnName="Notification_day" />
                 <ScalarProperty Name="Mail_choice" ColumnName="Mail_choice" />
+                <ScalarProperty Name="Rule_name" ColumnName="Rule_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1524,6 +1529,7 @@
                 <ScalarProperty Name="FIrst_name" ColumnName="FIrst_name" />
                 <ScalarProperty Name="Last_name" ColumnName="Last_name" />
                 <ScalarProperty Name="Is_Female" ColumnName="Is_Female" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

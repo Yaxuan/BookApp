@@ -14,6 +14,12 @@ namespace DataTest
     
     public partial class Item
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Item()
+        {
+            this.SerialItems = new HashSet<SerialItem>();
+        }
+    
         public int Item_id { get; set; }
         public int Item_type { get; set; }
         public Nullable<int> Subject { get; set; }
@@ -21,7 +27,8 @@ namespace DataTest
     
         public virtual Book Book { get; set; }
         public virtual ItemStatu ItemStatu { get; set; }
-        public virtual SerialItem SerialItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SerialItem> SerialItems { get; set; }
         public virtual WishList WishList { get; set; }
     }
 }
