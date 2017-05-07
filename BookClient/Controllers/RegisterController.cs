@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using BookClient.Enum;
+using BookClient.Interface;
 using BookClient.Models;
 using BookClient.ViewModels;
 
@@ -14,6 +12,13 @@ namespace BookClient.Controllers
 {
     public class RegisterController : Controller
     {
+        private readonly IServiceFactory _serviceFactory;
+
+        public RegisterController(IServiceFactory serviceFactory)
+        {
+            _serviceFactory = serviceFactory;
+        }
+
         // GET: Register
         public ActionResult Register()
         {
@@ -26,7 +31,7 @@ namespace BookClient.Controllers
             if (ModelState.IsValid)
             {
                 //Create user
-                HttpClient client = new HttpClient { BaseAddress = new Uri(BookAppUri.BookRestApiLocalTestUrl) };
+                HttpClient client = new HttpClient { BaseAddress = new Uri(_serviceFactory.GetServiceUri()) };
 
                 User user = new User
                 {

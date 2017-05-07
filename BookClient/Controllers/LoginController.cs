@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using BookClient.Enum;
+using BookClient.Interface;
 using BookClient.Models;
 using BookClient.ViewModels;
 
@@ -14,6 +14,14 @@ namespace BookClient.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly string _serviceUri;
+
+        public LoginController(IServiceFactory serviceFactory)
+        {
+            _serviceUri = serviceFactory.GetServiceUri();
+        }
+
+
         // GET: Login
         public ActionResult Index()
         {
@@ -26,7 +34,7 @@ namespace BookClient.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpClient client = new HttpClient {BaseAddress = new Uri(BookAppUri.BookRestApiLocalTestUrl)};
+                HttpClient client = new HttpClient {BaseAddress = new Uri(_serviceUri) };
 
                 try
                 {
@@ -36,7 +44,7 @@ namespace BookClient.Controllers
                     {
                         var user = await response.Content.ReadAsAsync<User>();
                         Session["UserId"] = user.User_id;
-                        Session["UserName"] = user.FIrst_name;
+                        Session["UserName"] = user.User_name;
                         Session["UserGroupId"] = user.User_group_id;
 
                         //Get permissions

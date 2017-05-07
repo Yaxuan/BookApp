@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookClient", "BookClient\BookClient.csproj", "{F0B575C2-2316-48DC-A764-656C02B08911}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookClient.Tests", "BookClient.Tests\BookClient.Tests.csproj", "{AFB4EB5E-E468-40B8-AE7F-9422F35771B4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E9ABDD7-CD32-480E-8FB2-7369CAA52538} = {0E9ABDD7-CD32-480E-8FB2-7369CAA52538}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTest", "DataTest\DataTest.csproj", "{2B8F8C02-3AFE-4578-9CAD-A404654C4EA4}"
 EndProject

@@ -71,19 +71,19 @@ namespace DataTest
         }
 
 
-        [TestMethod]
-        public void CreateMoreReservations()
-        {
-            var dataGen = new DataGeneration();
-            dataGen.GenerateReservation();
-        }
+        //[TestMethod]
+        //public void CreateMoreReservations()
+        //{
+        //    var dataGen = new DataGeneration();
+        //    dataGen.GenerateReservation();
+        //}
 
-        [TestMethod]
-        public void CreateNormalMember()
-        {
-            var dataGen = new DataGeneration();
-            dataGen.GenerateNormalMember();
-        }
+        //[TestMethod]
+        //public void CreateNormalMember()
+        //{
+        //    var dataGen = new DataGeneration();
+        //    dataGen.GenerateNormalMember();
+        //}
 
         //context.Database.ExecuteSqlCommand( 
         //                    @"UPDATE Blogs SET Rating = 5" + 
