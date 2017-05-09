@@ -48,7 +48,7 @@ namespace BookClient.Controllers
                 try
                 {
                     //Create user
-                    var userCtrResponse = await client.PostAsJsonAsync("api/users", user);
+                    var userCtrResponse = await client.PostAsJsonAsync("api/user", user);
 
                     if (userCtrResponse.StatusCode == HttpStatusCode.Created)
                     {

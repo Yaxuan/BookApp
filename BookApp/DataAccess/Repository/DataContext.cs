@@ -10,7 +10,8 @@ namespace BookApp.DataAccess.Repository
         public DataContext()
             : base("name=DataContext")
         {
-            this.Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -20,9 +21,11 @@ namespace BookApp.DataAccess.Repository
 
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<User> Members { get; set; }
-        public virtual DbSet<User> UserGroups { get; set; }
-        public virtual DbSet<User> NormalMembers { get; set; }
-        public virtual DbSet<User> Permissons { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<UserGroup> UserGroups { get; set; }
+        public virtual DbSet<NormalMember> NormalMembers { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
     }
 }

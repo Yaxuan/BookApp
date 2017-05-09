@@ -1,8 +1,9 @@
-﻿using BookApp.DataAccess.Interface;
+﻿using System;
+using BookApp.DataAccess.Interface;
 
 namespace BookApp.DataAccess.Repository
 {
-    public class UnitOfWork : IContext
+    public class UnitOfWork : IContext, IDisposable
     {
         private readonly DataContext _context;
 
@@ -15,6 +16,9 @@ namespace BookApp.DataAccess.Repository
             UserGroups = new UserGroupRepository(_context);
             Permissions = new PermissionRepository(_context);
             NormalMembers = new NormalMemberRepository(_context);
+            ItemStatus = new ItemStatusRepository(_context);
+            Items = new ItemRepository(_context);
+            SerialItems = new SerialItemRepository(_context);
         }
 
         public IBookRepository Books { get; }
@@ -23,6 +27,9 @@ namespace BookApp.DataAccess.Repository
         public IUserGroupRepository UserGroups { get; }
         public IPermissionRepository Permissions { get; }
         public INormalMemberRepository NormalMembers { get; }
+        public IItemStatusRepository ItemStatus { get; }
+        public IItemRepository Items { get; }
+        public ISerialItemRepository SerialItems { get; }
 
         public int Complete()
         {
@@ -31,9 +38,17 @@ namespace BookApp.DataAccess.Repository
 
         public void Dispose()
         {
-            _context.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context?.Dispose();
+            }
+        }
     }
+
 }

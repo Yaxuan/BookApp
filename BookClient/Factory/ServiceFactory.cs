@@ -20,8 +20,7 @@ namespace BookClient.Factory
             {
                 case "GLSRestService":
                     // Calling a real API
-                    throw new NotImplementedException("GLSRestService not impelmented"); //TODO: The uri should of course also be taken from config files.
-                    break;
+                    throw new NotImplementedException("GLSRestService not implemented"); //TODO: The uri should of course also be taken from config files.
                 case "TestGLSRestService":
                     // Calling a local service
                     uri = "http://localhost:60673/";
@@ -31,7 +30,7 @@ namespace BookClient.Factory
                     uri = "http://localhost:8080/"; //soupUI
                     break;
                 default:
-                    throw new NotImplementedException(config + " not implmented");
+                    throw new NotImplementedException(config + " not implemented");
             }
 
             return uri;

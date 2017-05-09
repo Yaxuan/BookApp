@@ -19,7 +19,6 @@ namespace BookClient.Models
         public DateTime? Publish_time { get; set; }
         public int? Page { get; set; }
         public byte[] Image { get; set; }
-        public System.DateTime Create_time { get; set; }
         public string Description { get; set; }
 
         public Item Item { get; set; }

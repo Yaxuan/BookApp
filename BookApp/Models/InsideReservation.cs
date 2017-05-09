@@ -19,5 +19,6 @@ namespace BookApp.Models
         public int Batch_id { get; set; }
     
         public virtual Reservation Reservation { get; set; }
+        public virtual SerialItem SerialItem { get; set; }
     }
 }

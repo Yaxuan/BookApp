@@ -32,7 +32,6 @@ namespace BookApp.Models
         public Nullable<System.DateTime> Publish_time { get; set; }
         public Nullable<int> Page { get; set; }
         public byte[] Image { get; set; }
-        public System.DateTime Create_time { get; set; }
         public string Description { get; set; }
     
         public virtual Item Item { get; set; }

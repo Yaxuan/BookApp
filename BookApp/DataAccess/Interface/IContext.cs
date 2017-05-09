@@ -8,6 +8,9 @@
         IUserGroupRepository UserGroups { get; }
         IPermissionRepository Permissions { get; }
         INormalMemberRepository NormalMembers { get; }
+        IItemStatusRepository ItemStatus { get; }
+        IItemRepository Items { get; }
+        ISerialItemRepository SerialItems { get; }
         int Complete();
     }
 }

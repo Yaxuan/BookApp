@@ -28,12 +28,12 @@ namespace BookApp.DataAccess.Repository
         {
             // Here we are working with a DbContext. So we don't have DbSets 
             // such as Courses or Authors, and we need to use the generic Set() method to access them.
-            return await Context.Set<TEntity>().FindAsync(id);
+            return await Context.Set<TEntity>().FindAsync(id).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return  await Context.Set<TEntity>().ToListAsync();
+            return  await Context.Set<TEntity>().ToListAsync().ConfigureAwait(false);
         }
 
         public Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
@@ -49,32 +49,32 @@ namespace BookApp.DataAccess.Repository
         public async Task AddAsync(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().AddRange(entities);
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task RemoveAsync(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task RemoveRangeAsync(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().RemoveRange(entities);
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task SaveAsync(TEntity entity)
         {
             Context.Set<TEntity>().Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task SaveRangeAsync(IEnumerable<TEntity> entities)
@@ -83,7 +83,7 @@ namespace BookApp.DataAccess.Repository
             {
                 Context.Set<TEntity>().Attach(entity);
             }
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

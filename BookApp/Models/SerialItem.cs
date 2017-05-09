@@ -18,6 +18,7 @@ namespace BookApp.Models
         public SerialItem()
         {
             this.Fines = new HashSet<Fine>();
+            this.InsideReservations = new HashSet<InsideReservation>();
         }
     
         public int Serial_item_id { get; set; }
@@ -30,5 +31,8 @@ namespace BookApp.Models
         public virtual ICollection<Fine> Fines { get; set; }
         public virtual Item Item { get; set; }
         public virtual Location Location { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InsideReservation> InsideReservations { get; set; }
+        public virtual Item Item1 { get; set; }
     }
 }

@@ -31,7 +31,6 @@
           <Property Name="Publish_time" Type="date" />
           <Property Name="Page" Type="int" />
           <Property Name="Image" Type="image" />
-          <Property Name="Create_time" Type="datetime" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BookAuthor">
@@ -116,7 +115,7 @@
           <Key>
             <PropertyRef Name="Loan_rule_id" />
           </Key>
-          <Property Name="Loan_rule_id" Type="int" Nullable="false" />
+          <Property Name="Loan_rule_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Max_loan_book" Type="smallint" Nullable="false" />
           <Property Name="Max_loan_day" Type="smallint" Nullable="false" />
           <Property Name="Grace_day" Type="smallint" Nullable="false" />
@@ -284,7 +283,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BookAuthor_Book">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="BookAuthor" Type="Self.BookAuthor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
@@ -340,6 +341,18 @@
             </Principal>
             <Dependent Role="InsideReservation">
               <PropertyRef Name="Reserve_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InsideReservation_SerialItem">
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="1" />
+          <End Role="InsideReservation" Type="Self.InsideReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerialItem">
+              <PropertyRef Name="Serial_item_id" />
+            </Principal>
+            <Dependent Role="InsideReservation">
+              <PropertyRef Name="Serial_item_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -465,13 +478,13 @@
         </Association>
         <Association Name="FK_SerialItem_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
-          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="0..1" />
+          <End Role="SerialItem" Type="Self.SerialItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Item">
               <PropertyRef Name="Item_id" />
             </Principal>
             <Dependent Role="SerialItem">
-              <PropertyRef Name="Serial_item_id" />
+              <PropertyRef Name="Item_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -591,6 +604,10 @@
             <End Role="Reservation" EntitySet="Reservation" />
             <End Role="InsideReservation" EntitySet="InsideReservation" />
           </AssociationSet>
+          <AssociationSet Name="FK_InsideReservation_SerialItem" Association="Self.FK_InsideReservation_SerialItem">
+            <End Role="SerialItem" EntitySet="SerialItem" />
+            <End Role="InsideReservation" EntitySet="InsideReservation" />
+          </AssociationSet>
           <AssociationSet Name="FK_ItemStatus_Item" Association="Self.FK_ItemStatus_Item">
             <End Role="Item" EntitySet="Item" />
             <End Role="ItemStatus" EntitySet="ItemStatus" />
@@ -687,7 +704,6 @@
           <Property Name="Publish_time" Type="DateTime" Precision="0" />
           <Property Name="Page" Type="Int32" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Create_time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Item" Relationship="Self.FK_Book_Item" FromRole="Book" ToRole="Item" />
           <NavigationProperty Name="Authors" Relationship="Self.BookAuthor" FromRole="Book" ToRole="Author" />
@@ -736,6 +752,7 @@
           <Property Name="Serial_item_id" Type="Int32" Nullable="false" />
           <Property Name="Batch_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Reservation" Relationship="Self.FK_InsideReservation_Reservation" FromRole="InsideReservation" ToRole="Reservation" />
+          <NavigationProperty Name="SerialItem" Relationship="GlsEntityModel.FK_InsideReservation_SerialItem" FromRole="InsideReservation" ToRole="SerialItem" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -749,6 +766,7 @@
           <NavigationProperty Name="ItemStatu" Relationship="Self.FK_ItemStatus_Item" FromRole="Item" ToRole="ItemStatus" />
           <NavigationProperty Name="SerialItem" Relationship="Self.FK_SerialItem_Item" FromRole="Item" ToRole="SerialItem" />
           <NavigationProperty Name="WishList" Relationship="Self.FK_WishList_Item" FromRole="Item" ToRole="WishList" />
+          <NavigationProperty Name="SerialItems" Relationship="GlsEntityModel.FK_SerialItem_Item1" FromRole="Item" ToRole="SerialItem" />
         </EntityType>
         <EntityType Name="ItemStatu">
           <Key>
@@ -893,6 +911,8 @@
           <NavigationProperty Name="Fines" Relationship="Self.FK_Fine_SerialItem" FromRole="SerialItem" ToRole="Fine" />
           <NavigationProperty Name="Item" Relationship="Self.FK_SerialItem_Item" FromRole="SerialItem" ToRole="Item" />
           <NavigationProperty Name="Location" Relationship="Self.FK_SerialItem_Location" FromRole="SerialItem" ToRole="Location" />
+          <NavigationProperty Name="InsideReservations" Relationship="GlsEntityModel.FK_InsideReservation_SerialItem" FromRole="SerialItem" ToRole="InsideReservation" />
+          <NavigationProperty Name="Item1" Relationship="GlsEntityModel.FK_SerialItem_Item1" FromRole="SerialItem" ToRole="Item" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1284,7 +1304,39 @@
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="UserGroup" EntitySet="UserGroups" />
           </AssociationSet>
+          <AssociationSet Name="FK_InsideReservation_SerialItem" Association="GlsEntityModel.FK_InsideReservation_SerialItem">
+            <End Role="SerialItem" EntitySet="SerialItems" />
+            <End Role="InsideReservation" EntitySet="InsideReservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialItem_Item1" Association="GlsEntityModel.FK_SerialItem_Item1">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="SerialItem" EntitySet="SerialItems" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_InsideReservation_SerialItem">
+          <End Type="GlsEntityModel.SerialItem" Role="SerialItem" Multiplicity="1" />
+          <End Type="GlsEntityModel.InsideReservation" Role="InsideReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerialItem">
+              <PropertyRef Name="Serial_item_id" />
+            </Principal>
+            <Dependent Role="InsideReservation">
+              <PropertyRef Name="Serial_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialItem_Item1">
+          <End Type="GlsEntityModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="GlsEntityModel.SerialItem" Role="SerialItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Item_id" />
+            </Principal>
+            <Dependent Role="SerialItem">
+              <PropertyRef Name="Item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1317,7 +1369,6 @@
                 <ScalarProperty Name="Publish_time" ColumnName="Publish_time" />
                 <ScalarProperty Name="Page" ColumnName="Page" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Create_time" ColumnName="Create_time" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>

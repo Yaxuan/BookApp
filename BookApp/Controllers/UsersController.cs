@@ -20,6 +20,8 @@ namespace BookApp.Controllers
         }
 
         // GET: api/Users
+        [HttpGet]
+        [Route("api/users")]
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> GetUsersAsync()
         {
@@ -63,7 +65,7 @@ namespace BookApp.Controllers
 
         // POST: api/Users
         [ResponseType(typeof(User))]
-        [Route("api/users")]
+        [Route("api/user")]
         public async Task<IHttpActionResult> Post(User user)
         {
             if (!ModelState.IsValid)

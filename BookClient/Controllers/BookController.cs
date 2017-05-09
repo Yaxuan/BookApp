@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BookClient.Enum;
+using BookClient.Interface;
 using BookClient.Models;
 using BookClient.ViewModels;
 
@@ -10,50 +15,17 @@ namespace BookClient.Controllers
 {
     public class BookController : Controller
     {
+        private readonly string _serviceUri;
+
+        public BookController(IServiceFactory serviceFactory)
+        {
+            _serviceUri = serviceFactory.GetServiceUri();
+        }
+
         // GET: Book
         public ActionResult Index()
-        {
-            
-            var bookList = new List<Book>();
-            var book = new Book
-            {
-                Binding = 1,
-                Create_time = DateTime.Now,
-                Description = "This is a good book.",
-                Edition = "4",
-                Isbn = "1000342356",
-                Item_id = 1,
-                Language = 1,
-                Page = 400,
-                Price = 500,
-                Price_unit = "kroner",
-                Publish_time = DateTime.Now,
-                Publisher = "Aarhus university",
-                Title = "Mathematics"
-            };
-
-            var book2 = new Book
-            {
-                Binding = 1,
-                Create_time = DateTime.Now,
-                Description = "This is another good book.",
-                Edition = "1",
-                Isbn = "1000342357",
-                Item_id = 2,
-                Language = 1,
-                Page = 200,
-                Price = 400,
-                Price_unit = "kroner",
-                Publish_time = DateTime.Now,
-                Publisher = "Aarhus university",
-                Title = "Clinik"
-            };
-
-            bookList.Add(book);
-            bookList.Add(book2);
-
-            SearchBookViewModel books = new SearchBookViewModel() {Books = bookList};
-            return View(books);
+        {            
+            return View();
         }
 
 
@@ -71,6 +43,44 @@ namespace BookClient.Controllers
         public ActionResult Delete(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public ActionResult Create()
+        {
+            return View(new CreateBookViewModel());
+        }
+
+        public async Task<ActionResult> SearchAsync(SearchBookViewModel searchBookViewModel)
+        {
+            HttpClient client = new HttpClient { BaseAddress = new Uri(_serviceUri) };
+
+            try
+            {
+                var bookViewModel = new SearchBookViewModel();
+
+                HttpResponseMessage response =
+                    await client.GetAsync("api/books/search/" + searchBookViewModel.SearchField +
+                                          (string.IsNullOrEmpty(searchBookViewModel.Subject)
+                                              ? null
+                                              : "/" + searchBookViewModel.Subject)).ConfigureAwait(false);
+
+                if (response.StatusCode == HttpStatusCode.Found)
+                {
+                    bookViewModel.Books = await response.Content.ReadAsAsync<List<Book>>().ConfigureAwait(false);
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    ModelState.AddModelError("", "No books found.");
+                    return View(bookViewModel);
+                }
+
+                return View("Index", bookViewModel);
+            }
+            catch (HttpRequestException e)
+            {
+                ModelState.AddModelError("Error", "Error: " + e.Message);
+                return View();
+            }
         }
     }
 }

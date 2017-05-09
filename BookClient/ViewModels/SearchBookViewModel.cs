@@ -7,6 +7,8 @@ namespace BookClient.ViewModels
     {
         public string SearchField { get; set; }
 
-        public List<Book> Books { get; set; }
+        public string Subject { get; set; }
+
+        public List<Book> Books { get; set; } = new List<Book>();
     }
 }
