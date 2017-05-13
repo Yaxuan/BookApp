@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -27,7 +28,7 @@ namespace BookApp.Controllers
                 var books =
                     await _context.Books.SearchBooksAsync(searchText).ConfigureAwait(false);
 
-                if (books == null)
+                if (!books.Any())
                 {
                     return NotFound();
                 }
@@ -56,6 +57,29 @@ namespace BookApp.Controllers
                 }
 
                 return Ok(books);
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        // GET: api/books
+        [HttpGet]
+        [Route("api/books/{isbn}/status")]
+        [ResponseType(typeof(BookStatusView))]
+        public async Task<IHttpActionResult> GetBookStatusAsync(string isbn)
+        {
+            try
+            {
+                BookStatusView bookStatus = await _context.Books.GetBookStatusAsync(isbn).ConfigureAwait(false);
+
+                if (bookStatus == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(bookStatus);
             }
             catch (Exception e)
             {

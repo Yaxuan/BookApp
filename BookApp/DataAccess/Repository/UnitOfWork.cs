@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using BookApp.DataAccess.Interface;
 
 namespace BookApp.DataAccess.Repository
@@ -19,6 +20,7 @@ namespace BookApp.DataAccess.Repository
             ItemStatus = new ItemStatusRepository(_context);
             Items = new ItemRepository(_context);
             SerialItems = new SerialItemRepository(_context);
+            Reservations = new ReservationRepository(_context);
         }
 
         public IBookRepository Books { get; }
@@ -30,6 +32,8 @@ namespace BookApp.DataAccess.Repository
         public IItemStatusRepository ItemStatus { get; }
         public IItemRepository Items { get; }
         public ISerialItemRepository SerialItems { get; }
+
+        public IReservationRepository Reservations { get; }
 
         public int Complete()
         {
@@ -48,6 +52,11 @@ namespace BookApp.DataAccess.Repository
             {
                 _context?.Dispose();
             }
+        }
+
+        public DbContextTransaction BeginTransaction()
+        {
+            return _context.Database.BeginTransaction();
         }
     }
 

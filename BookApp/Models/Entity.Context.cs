@@ -48,5 +48,7 @@ namespace BookApp.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
+        public virtual DbSet<BookStatusView> BookStatusViews { get; set; }
+        public virtual DbSet<UserReservationView> UserReservationViews { get; set; }
     }
 }

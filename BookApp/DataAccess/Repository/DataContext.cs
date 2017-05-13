@@ -27,5 +27,9 @@ namespace BookApp.DataAccess.Repository
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<BookStatusView> BookStatus { get; set; }
+        public virtual DbSet<ItemStatu> ItemStatus { get; set; }
+
+        public virtual DbSet<Reservation> Reservations { get; set; }
     }
 }

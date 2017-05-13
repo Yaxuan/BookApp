@@ -116,10 +116,10 @@
             <PropertyRef Name="Loan_rule_id" />
           </Key>
           <Property Name="Loan_rule_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Max_loan_book" Type="smallint" Nullable="false" />
-          <Property Name="Max_loan_day" Type="smallint" Nullable="false" />
-          <Property Name="Grace_day" Type="smallint" Nullable="false" />
-          <Property Name="Notification_day" Type="smallint" Nullable="false" />
+          <Property Name="Max_loan_book" Type="smallint" />
+          <Property Name="Max_loan_day" Type="smallint" />
+          <Property Name="Grace_day" Type="smallint" />
+          <Property Name="Notification_day" Type="smallint" />
           <Property Name="Mail_choice" Type="smallint" />
           <Property Name="Rule_name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -257,6 +257,29 @@
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Copy" Type="int" Nullable="false" />
           <Property Name="Reason" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GLS.dbo.BookStatusView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BookStatusView">
+          <Key>
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="CanLoanOut" />
+          </Key>
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="Isbn" Type="nvarchar" MaxLength="50" />
+          <Property Name="CanLoanOut" Type="bit" Nullable="false" />
+          <Property Name="IsAvailable" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GLS.dbo.UserReservationView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserReservationView">
+          <Key>
+            <PropertyRef Name="User_id" />
+            <PropertyRef Name="User_name" />
+          </Key>
+          <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReservationCount" Type="int" />
         </EntityType>
         <Association Name="FK_Book_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
@@ -576,6 +599,21 @@
           <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroupPermission" EntityType="Self.UserGroupPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookStatusView" EntityType="Self.BookStatusView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BookStatusView].[ItemId] AS [ItemId], 
+    [BookStatusView].[Isbn] AS [Isbn], 
+    [BookStatusView].[CanLoanOut] AS [CanLoanOut], 
+    [BookStatusView].[IsAvailable] AS [IsAvailable]
+    FROM [dbo].[BookStatusView] AS [BookStatusView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserReservationView" EntityType="Self.UserReservationView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserReservationView].[User_id] AS [User_id], 
+    [UserReservationView].[User_name] AS [User_name], 
+    [UserReservationView].[ReservationCount] AS [ReservationCount]
+    FROM [dbo].[UserReservationView] AS [UserReservationView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Book_Item" Association="Self.FK_Book_Item">
             <End Role="Item" EntitySet="Item" />
             <End Role="Book" EntitySet="Book" />
@@ -796,10 +834,10 @@
             <PropertyRef Name="Loan_rule_id" />
           </Key>
           <Property Name="Loan_rule_id" Type="Int32" Nullable="false" />
-          <Property Name="Max_loan_book" Type="Int16" Nullable="false" />
-          <Property Name="Max_loan_day" Type="Int16" Nullable="false" />
-          <Property Name="Grace_day" Type="Int16" Nullable="false" />
-          <Property Name="Notification_day" Type="Int16" Nullable="false" />
+          <Property Name="Max_loan_book" Type="Int16" />
+          <Property Name="Max_loan_day" Type="Int16" />
+          <Property Name="Grace_day" Type="Int16" />
+          <Property Name="Notification_day" Type="Int16" />
           <Property Name="Mail_choice" Type="Int16" />
           <NavigationProperty Name="Members" Relationship="Self.FK_Member_Loan_Rule" FromRole="Loan_Rule" ToRole="Member" />
           <Property Name="Rule_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1312,6 +1350,8 @@
             <End Role="Item" EntitySet="Items" />
             <End Role="SerialItem" EntitySet="SerialItems" />
           </AssociationSet>
+          <EntitySet Name="BookStatusViews" EntityType="GlsEntityModel.BookStatusView" />
+          <EntitySet Name="UserReservationViews" EntityType="GlsEntityModel.UserReservationView" />
         </EntityContainer>
         <Association Name="FK_InsideReservation_SerialItem">
           <End Type="GlsEntityModel.SerialItem" Role="SerialItem" Multiplicity="1" />
@@ -1337,6 +1377,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BookStatusView">
+          <Key>
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="CanLoanOut" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="Isbn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CanLoanOut" Type="Boolean" Nullable="false" />
+          <Property Name="IsAvailable" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserReservationView">
+          <Key>
+            <PropertyRef Name="User_id" />
+            <PropertyRef Name="User_name" />
+          </Key>
+          <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservationCount" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1619,6 +1678,25 @@
               <ScalarProperty Name="User_group_id" ColumnName="User_group_id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="BookStatusViews">
+            <EntityTypeMapping TypeName="GlsEntityModel.BookStatusView">
+              <MappingFragment StoreEntitySet="BookStatusView">
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="CanLoanOut" ColumnName="CanLoanOut" />
+                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserReservationViews">
+            <EntityTypeMapping TypeName="GlsEntityModel.UserReservationView">
+              <MappingFragment StoreEntitySet="UserReservationView">
+                <ScalarProperty Name="ReservationCount" ColumnName="ReservationCount" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

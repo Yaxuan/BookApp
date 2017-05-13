@@ -16,18 +16,26 @@ namespace BookApp.DataAccess.Repository
             _context = context;
         }
 
-        public Task<IEnumerable<Book>> SearchBooksAsync(string searchText)
+        public Task<List<Book>> SearchBooksAsync(string searchText)
         {
             return Task.Run(() =>
             {
                 return _context.Books.Where(b =>
                         b.Isbn.Contains(searchText) || b.Title.Contains(searchText) ||
                         b.Publisher.Contains(searchText) ||
-                        b.Authors.Any(a => a.First_name.Contains(searchText) || a.Last_name.Contains(searchText))).Include(b => b.Authors).Include(b => b.Item).AsEnumerable();
+                        b.Authors.Any(a => a.First_name.Contains(searchText) || a.Last_name.Contains(searchText))).Include(b => b.Authors).Include(b => b.Item).ToList();
 
             });
 
         }
 
+        public Task<BookStatusView> GetBookStatusAsync(string isbn)
+        {
+            return Task.Run(() =>
+            {
+                return _context.BookStatus.FirstOrDefault(b => b.Isbn == isbn);
+
+            });
+        }     
     }
 }

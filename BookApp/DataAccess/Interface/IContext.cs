@@ -1,4 +1,6 @@
-﻿namespace BookApp.DataAccess.Interface
+﻿using System.Data.Entity;
+
+namespace BookApp.DataAccess.Interface
 {
     public interface IContext
     {
@@ -11,6 +13,8 @@
         IItemStatusRepository ItemStatus { get; }
         IItemRepository Items { get; }
         ISerialItemRepository SerialItems { get; }
+        IReservationRepository Reservations { get; }
         int Complete();
+        DbContextTransaction BeginTransaction();
     }
 }

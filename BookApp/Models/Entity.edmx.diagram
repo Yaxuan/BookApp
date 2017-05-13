@@ -51,6 +51,8 @@
         <AssociationConnector Association="GlsEntityModel.UserGroupPermission" ManuallyRouted="false" />
         <AssociationConnector Association="GlsEntityModel.FK_InsideReservation_SerialItem" />
         <AssociationConnector Association="GlsEntityModel.FK_SerialItem_Item1" />
+        <EntityTypeShape EntityType="GlsEntityModel.BookStatusView" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GlsEntityModel.UserReservationView" Width="1.5" PointX="7.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

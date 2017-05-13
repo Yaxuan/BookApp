@@ -21,10 +21,10 @@ namespace BookApp.Models
         }
     
         public int Loan_rule_id { get; set; }
-        public short Max_loan_book { get; set; }
-        public short Max_loan_day { get; set; }
-        public short Grace_day { get; set; }
-        public short Notification_day { get; set; }
+        public Nullable<short> Max_loan_book { get; set; }
+        public Nullable<short> Max_loan_day { get; set; }
+        public Nullable<short> Grace_day { get; set; }
+        public Nullable<short> Notification_day { get; set; }
         public Nullable<short> Mail_choice { get; set; }
         public string Rule_name { get; set; }
     

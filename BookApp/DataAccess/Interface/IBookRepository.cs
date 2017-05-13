@@ -7,6 +7,8 @@ namespace BookApp.DataAccess.Interface
 {
     public interface IBookRepository : IRepository<Book>
     {
-        Task<IEnumerable<Book>> SearchBooksAsync(string searchText);
+        Task<List<Book>> SearchBooksAsync(string searchText);
+
+        Task<BookStatusView> GetBookStatusAsync(string isbn);
     }
 }

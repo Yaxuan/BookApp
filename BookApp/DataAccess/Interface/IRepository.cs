@@ -21,13 +21,21 @@ namespace BookApp.DataAccess.Interface
 
         Task AddRangeAsync(IEnumerable<TEntity> entities);
 
+        void AddRange(IEnumerable<TEntity> entities);
+
         Task RemoveAsync(TEntity entity);
 
         Task RemoveRangeAsync(IEnumerable<TEntity> entities);
 
         Task SaveAsync(TEntity entity);
 
+        void Save(TEntity entity);
+
         Task SaveRangeAsync(IEnumerable<TEntity> entities);
+
+        void SaveRange(IEnumerable<TEntity> entities);
+
+        Task<long> GetSequenceNoAsync(string sequenceName);
 
     }
 }

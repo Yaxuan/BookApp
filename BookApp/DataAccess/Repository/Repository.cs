@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -15,6 +16,11 @@ namespace BookApp.DataAccess.Repository
         public Repository(DbContext context)
         {
             Context = context;
+        }
+
+        public virtual DbQuery<TEntity> Include(string path)
+        {
+            return Context.Set<TEntity>().Include(path);
         }
 
         public Task<TEntity> GetAsync(int id)
@@ -52,10 +58,18 @@ namespace BookApp.DataAccess.Repository
             await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        public Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            return Task.Run(() =>
+            {
+                AddRange(entities);
+            });
+        }
+
+        public void AddRange(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().AddRange(entities);
-            await Context.SaveChangesAsync().ConfigureAwait(false);
+            Context.SaveChanges();
         }
 
         public async Task RemoveAsync(TEntity entity)
@@ -70,20 +84,43 @@ namespace BookApp.DataAccess.Repository
             await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public async Task SaveAsync(TEntity entity)
+        public Task SaveAsync(TEntity entity)
+        {
+            return Task.Run(() =>
+            {
+                Save(entity);
+            });
+        }
+
+        public void Save(TEntity entity)
         {
             Context.Set<TEntity>().Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
-            await Context.SaveChangesAsync().ConfigureAwait(false);
+            Context.SaveChanges();
         }
 
-        public async Task SaveRangeAsync(IEnumerable<TEntity> entities)
+        public Task SaveRangeAsync(IEnumerable<TEntity> entities)
+        {
+            return Task.Run(() =>
+            {
+                SaveRange(entities);
+            });            
+        }
+
+        public void SaveRange(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
             {
                 Context.Set<TEntity>().Attach(entity);
+                Context.Entry(entity).State = EntityState.Modified;
             }
-            await Context.SaveChangesAsync().ConfigureAwait(false);
+            Context.SaveChanges();
+        }
+
+        public async Task<long> GetSequenceNoAsync(string sequenceName)
+        {
+            DbRawSqlQuery<long> rawQuery = Context.Database.SqlQuery<long>("SELECT NEXT VALUE FOR dbo." + sequenceName + ";");
+            return await rawQuery.SingleAsync().ConfigureAwait(false);
         }
     }
 }
