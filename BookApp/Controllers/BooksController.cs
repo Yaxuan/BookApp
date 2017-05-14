@@ -28,6 +28,15 @@ namespace BookApp.Controllers
                 var books =
                     await _context.Books.SearchBooksAsync(searchText).ConfigureAwait(false);
 
+                await Task.Run(() =>
+                {
+                    foreach (var book in books)
+                    {
+                        book.Item = _context.Items.GetItemIncludeStatus(book.Item_id);
+                    }
+                }).ConfigureAwait(false);
+                
+
                 if (!books.Any())
                 {
                     return NotFound();

@@ -9,6 +9,8 @@ namespace BookClient.ViewModels
 
         public string Subject { get; set; }
 
+        //public List<Item> Items { get; set; } = new List<Item>();
+
         public List<Book> Books { get; set; } = new List<Book>();
     }
 }

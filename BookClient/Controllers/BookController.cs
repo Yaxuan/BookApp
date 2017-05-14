@@ -24,7 +24,7 @@ namespace BookClient.Controllers
 
         // GET: Book
         public ActionResult Index()
-        {            
+        {
             return View();
         }
 
@@ -64,14 +64,14 @@ namespace BookClient.Controllers
                                               ? null
                                               : "/" + searchBookViewModel.Subject)).ConfigureAwait(false);
 
-                if (response.StatusCode == HttpStatusCode.Found)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
                     bookViewModel.Books = await response.Content.ReadAsAsync<List<Book>>().ConfigureAwait(false);
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound)
                 {
                     ModelState.AddModelError("", "No books found.");
-                    return View(bookViewModel);
+                    return View("Index");
                 }
 
                 return View("Index", bookViewModel);
@@ -79,7 +79,59 @@ namespace BookClient.Controllers
             catch (HttpRequestException e)
             {
                 ModelState.AddModelError("Error", "Error: " + e.Message);
-                return View();
+                return View("Index");
+            }
+        }
+
+        public async Task<ActionResult> ReserveAsync(string isbn)
+        {
+            HttpClient client = new HttpClient { BaseAddress = new Uri(_serviceUri) };
+            try
+            {
+                if (Session["UserId"] != null)
+                {
+                    HttpResponseMessage normalMemberResponse =
+                        await client.GetAsync("api/NormalMembers/Search/" + (int)Session["UserId"]).ConfigureAwait(false);
+
+                    if (normalMemberResponse.StatusCode == HttpStatusCode.OK)
+                    {
+                        NormalMember member = await normalMemberResponse.Content.ReadAsAsync<NormalMember>().ConfigureAwait(false);
+
+                        HttpResponseMessage response =
+                            await client.PostAsJsonAsync("api/LibraryLoan",
+                                    new LoanRequirement { Isbn = isbn, CopyNumber = 1, MemberId = member.Member_id })
+                                .ConfigureAwait(false);
+
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            TempData["msg"] = "<script>alert('Reserve successfully');</script>";
+                            return View("Index");
+                        }
+                        else
+                        {
+
+                            ModelState.AddModelError("Error", await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                            return View("Index");
+                        }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Error", "Error: user is not a library member, please contact the library.");
+                        return View("Index");
+                    }
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+            }
+            catch (HttpRequestException e)
+            {
+                ModelState.AddModelError("Error", "Error: " + e.Message);
+                return View("Index");
             }
         }
     }

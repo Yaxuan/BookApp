@@ -36,13 +36,27 @@ namespace BookApp.Controllers
         [ResponseType(typeof(NormalMember))]
         public async Task<IHttpActionResult> GetAsync(int id)
         {
-            NormalMember user = await GetNormalMemberAsync(id);
-            if (user == null)
+            NormalMember normalMember = await GetNormalMemberAsync(id);
+            if (normalMember == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(normalMember);
+        }
+
+        [HttpGet]
+        [Route("api/NormalMembers/Search/{userId}")]
+        [ResponseType(typeof(NormalMember))]
+        public async Task<IHttpActionResult> GetNormalMemberByUserIdAsync(int userId)
+        {
+            NormalMember normalMember = await _context.NormalMembers.GetNormalMemberByUserIdAsync(userId).ConfigureAwait(false);
+            if (normalMember == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(normalMember);
         }
 
         // POST: api/NormalMembers

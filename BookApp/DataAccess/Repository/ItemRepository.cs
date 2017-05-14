@@ -25,6 +25,11 @@ namespace BookApp.DataAccess.Repository
             });
         }
 
+        public Item GetItemIncludeStatus(int itemId)
+        {
+            return _context.Items.Where(i => i.Item_id == itemId)?.Include(i => i.ItemStatu).Include(i => i.SerialItems).FirstOrDefault();
+        }
+
         public Task<List<SerialItem>> GetAvailableSerialItemsAsync(int qty, string isbn)
         {
             return Task.Run(() =>

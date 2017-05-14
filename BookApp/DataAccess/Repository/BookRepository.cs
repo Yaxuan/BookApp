@@ -23,7 +23,7 @@ namespace BookApp.DataAccess.Repository
                 return _context.Books.Where(b =>
                         b.Isbn.Contains(searchText) || b.Title.Contains(searchText) ||
                         b.Publisher.Contains(searchText) ||
-                        b.Authors.Any(a => a.First_name.Contains(searchText) || a.Last_name.Contains(searchText))).Include(b => b.Authors).Include(b => b.Item).ToList();
+                        b.Authors.Any(a => a.First_name.Contains(searchText) || a.Last_name.Contains(searchText))).Include(b => b.Authors).ToList();
 
             });
 

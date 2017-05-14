@@ -9,5 +9,7 @@ namespace BookApp.DataAccess.Interface
         Task<Item> GetItemIncludeStatusAsync(int itemId);
 
         Task<List<SerialItem>> GetAvailableSerialItemsAsync(int qty, string isbn);
+
+        Item GetItemIncludeStatus(int itemId);
     }
 }
