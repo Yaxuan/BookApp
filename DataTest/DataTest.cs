@@ -60,15 +60,15 @@ namespace DataTest
 
 
 
-        [TestMethod]
-        public void TestMethod()
-        {
-            var dataGen = new DataGeneration();
-            dataGen.TearDownData();
+        //[TestMethod]
+        //public void TestMethod()
+        //{
+        //    var dataGen = new DataGeneration();
+        //    dataGen.TearDownData();
 
-            //Default: member:16000, employee:10, book:100000, reservation: 100 * 0.2
-            dataGen.GenerateData(16000, 10, 100000);
-        }
+        //    //Default: member:16000, employee:10, book:100000, reservation: 100 * 0.2
+        //    dataGen.GenerateData(16000, 10, 100000);
+        //}
 
 
         //[TestMethod]

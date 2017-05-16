@@ -11,5 +11,6 @@ namespace BookApp.DataAccess.Interface
         Task<List<SerialItem>> GetAvailableSerialItemsAsync(int qty, string isbn);
 
         Item GetItemIncludeStatus(int itemId);
+        Task<int> GetReservedBooksAsync(int loanRequirementMemberId);
     }
 }

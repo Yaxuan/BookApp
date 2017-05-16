@@ -30,12 +30,20 @@ namespace BookApp.DataAccess.Repository
             return _context.Items.Where(i => i.Item_id == itemId)?.Include(i => i.ItemStatu).Include(i => i.SerialItems).FirstOrDefault();
         }
 
+        public Task<int> GetReservedBooksAsync(int loanRequirementMemberId)
+        {
+            return Task.Run(() =>
+            {
+                return _context.Reservations.Count(r => r.Member.Member_id == loanRequirementMemberId && (r.Status == 1 || r.Status == 2)); //Reserved or checkout
+            });
+        }
+
         public Task<List<SerialItem>> GetAvailableSerialItemsAsync(int qty, string isbn)
         {
             return Task.Run(() =>
             {
                 var item =
-                    _context.Items.Where(i => _context.Books.Any(b => b.Isbn == isbn && i.Item_id == b.Item_id) && _context.ItemStatus.Any(s => s.Can_loan_out && s.Item_id == i.Item_id))
+                    _context.Items.Where(i => _context.Books.Any(b => b.Isbn == isbn && i.Item_id == b.Item_id) && _context.ItemStatus.Any(s => s.Item_id == i.Item_id))
                         .Include(i => i.SerialItems)
                         .FirstOrDefault();
 

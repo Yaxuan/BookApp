@@ -25,7 +25,7 @@ namespace BookApp.Controllers
         [HttpPost]
         [Route("api/LibraryLoan")]  //AFD1EF6E-7E36-E711-BEAF-001FD0D391F6
         [ResponseType(typeof(ReservationResult))]
-        public async Task<IHttpActionResult> LoanBookFromOtherLibraryAsync(LoanRequirement loanRequirement)
+        public async Task<IHttpActionResult> LoanBookAsync(LoanRequirement loanRequirement)
         {
             try
             {
@@ -34,22 +34,35 @@ namespace BookApp.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var member = await _context.Members.GetLibraryMemberAsync(loanRequirement.MemberId).ConfigureAwait(false);
+                var member = await _context.Members.GetLibraryMemberAsync(loanRequirement.MemberId)
+                    .ConfigureAwait(false);
 
                 if (member == null)
                 {
                     throw new MemberNotFoundException("Member not found");
                 }
 
-                using (var dbContextTransaction = _context.BeginTransaction())
-                {
+                //using (var dbContextTransaction = _context.BeginTransaction())
+                //{
 
                     var availItems = await _context.Items.GetAvailableSerialItemsAsync(loanRequirement.CopyNumber,
                         loanRequirement.Isbn).ConfigureAwait(false);
 
-                    if (availItems?.Count >= loanRequirement.CopyNumber)
+                    var bookStatus = await _context.Books.GetBookStatusAsync(loanRequirement.Isbn).ConfigureAwait(false);
+
+                    if (availItems?.Count >= loanRequirement.CopyNumber && ((bookStatus.CanLoanOut && member.Library != null) || member.NormalMember != null))
                     {
-                        int batchId = Convert.ToInt32(await _context.Items.GetSequenceNoAsync("BatchId_Seq").ConfigureAwait(false));
+                        var memberReservedBooks =
+                            await _context.Items.GetReservedBooksAsync(loanRequirement.MemberId).ConfigureAwait(false);
+
+                        if (member.Loan_Rule.Max_loan_book != null &&
+                            member.Loan_Rule.Max_loan_book < memberReservedBooks + loanRequirement.CopyNumber)
+                        {
+                            throw new ExceedLoanLimitException("Loan max limit exceeded.");
+                        }
+
+                        int batchId =
+                            Convert.ToInt32(await _context.ContextHelper.GetSequenceNoAsync("BatchId_Seq").ConfigureAwait(false));
 
                         List<Reservation> reservations = new List<Reservation>();
                         List<SerialItem> serialItems = new List<SerialItem>();
@@ -59,13 +72,21 @@ namespace BookApp.Controllers
                             Reservation reservation = new Reservation
                             {
 
-                                InsideReservation = new InsideReservation { Serial_item_id = availItems[i].Serial_item_id, Batch_id = batchId },
+                                InsideReservation =
+                                    new InsideReservation
+                                    {
+                                        Serial_item_id = availItems[i].Serial_item_id,
+                                        Batch_id = batchId
+                                    },
                                 Batch_id = Convert.ToInt32(batchId),
                                 Member_id = member.Member_id,
                                 Reserve_time = DateTime.Now,
                                 Pickup_method = 1,
                                 Status = 1,
-                                Expected_return_date = member.Loan_Rule.Max_loan_day == null ? (DateTime?)null : DateTime.Now.Date.AddDays(member.Loan_Rule.Max_loan_day.Value)
+                                Expected_return_date =
+                                    member.Loan_Rule.Max_loan_day == null
+                                        ? (DateTime?) null
+                                        : DateTime.Now.Date.AddDays(member.Loan_Rule.Max_loan_day.Value)
                             };
 
                             reservations.Add(reservation);
@@ -78,7 +99,7 @@ namespace BookApp.Controllers
 
                         _context.SerialItems.SaveRange(serialItems);
 
-                        dbContextTransaction.Commit();
+                        //dbContextTransaction.Commit();
 
                         var result = new ReservationResult
                         {
@@ -90,10 +111,10 @@ namespace BookApp.Controllers
                     }
                     else
                     {
-                        throw new BookNotAvailableException("Not enough books for loan");
+                        throw new BookNotAvailableException("Required book is not available.");
                     }
 
-                }
+                //}
             }
             catch (MemberNotFoundException e)
             {

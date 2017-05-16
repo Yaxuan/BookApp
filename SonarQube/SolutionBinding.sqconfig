@@ -1,0 +1,10 @@
+{
+  "ServerUri": "http://localhost:9000",
+  "ProjectKey": "MyBookApp",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "cs-sonar-way-45224",
+      "ProfileTimestamp": "2017-05-14T22:36:43+02:00"
+    }
+  }
+}

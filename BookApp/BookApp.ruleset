@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="SonarQube - BookApp Sonar way" ToolsVersion="14.0">
+  <Include Path="..\sonarqube\mybookappcsharp.ruleset" Action="Default" />
+</RuleSet>

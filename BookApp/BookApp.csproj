@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BookApp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BookApp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -212,7 +214,9 @@
     <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CustomException\BookNotAvailableException.cs" />
+    <Compile Include="CustomException\ExceedLoanLimitException.cs" />
     <Compile Include="DataAccess\Interface\IBookRepository.cs" />
+    <Compile Include="DataAccess\Interface\IContextHelper.cs" />
     <Compile Include="DataAccess\Interface\IItemRepository.cs" />
     <Compile Include="DataAccess\Interface\IItemStatusRepository.cs" />
     <Compile Include="DataAccess\Interface\IMemberRepository.cs" />
@@ -225,6 +229,7 @@
     <Compile Include="DataAccess\Interface\IUserGroupRepository.cs" />
     <Compile Include="DataAccess\Interface\IUserRepository.cs" />
     <Compile Include="DataAccess\Repository\BookRepository.cs" />
+    <Compile Include="DataAccess\Repository\ContextHelper.cs" />
     <Compile Include="DataAccess\Repository\DataContext.cs" />
     <Compile Include="DataAccess\Repository\ItemRepository.cs" />
     <Compile Include="DataAccess\Repository\ItemStatusRepository.cs" />
@@ -350,6 +355,7 @@
     <Content Include="Models\Entity.edmx.diagram">
       <DependentUpon>Entity.edmx</DependentUpon>
     </Content>
+    <Content Include="BookApp.ruleset" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -365,6 +371,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

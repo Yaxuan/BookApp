@@ -24,7 +24,7 @@ namespace BookApp.DataAccess.Repository
             {
                 return
                     _context.Members.Where(m => m.Member_id == libraryId)
-                        .Include(m => m.Loan_Rule)
+                        .Include(m => m.Loan_Rule).Include(m => m.NormalMember).Include(m => m.Library)
                         .FirstOrDefault();
             });
         }

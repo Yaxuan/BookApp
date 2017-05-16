@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Deployment.Internal;
 
 namespace BookApp.DataAccess.Interface
 {
@@ -14,7 +15,9 @@ namespace BookApp.DataAccess.Interface
         IItemRepository Items { get; }
         ISerialItemRepository SerialItems { get; }
         IReservationRepository Reservations { get; }
+
+        IContextHelper ContextHelper { get;  }
         int Complete();
-        DbContextTransaction BeginTransaction();
+        //DbContextTransaction BeginTransaction();
     }
 }

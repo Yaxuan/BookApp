@@ -35,7 +35,7 @@ namespace BookApp.DataAccess.Interface
 
         void SaveRange(IEnumerable<TEntity> entities);
 
-        Task<long> GetSequenceNoAsync(string sequenceName);
+        //Task<long> GetSequenceNoAsync(string sequenceName);
 
     }
 }
