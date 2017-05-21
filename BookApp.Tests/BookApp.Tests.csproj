@@ -96,9 +96,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookControllerTest.cs" />
+    <Compile Include="UnitTest\DataAccess\BookRepositoryTest.cs" />
     <Compile Include="DataInput\FTC_2_1_1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTest\LoanControllerUnitTest.cs" />
+    <Compile Include="UnitTest\Contoller\LoanControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookApp\BookApp.csproj">

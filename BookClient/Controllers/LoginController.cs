@@ -14,12 +14,7 @@ namespace BookClient.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly string _serviceUri;
-
-        public LoginController(IServiceFactory serviceFactory)
-        {
-            _serviceUri = serviceFactory.GetServiceUri();
-        }
+        private readonly string _serviceUri = "http://localhost:60673/";
 
 
         // GET: Login

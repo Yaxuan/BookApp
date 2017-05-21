@@ -15,7 +15,7 @@ using Moq;
 namespace BookApp.Tests.UnitTest
 {
     [TestClass]
-    public class LoanControllerUnitTest
+    public class LoanControllerTest
     {
         /// <summary>
         /// FTC 2.1.1
@@ -165,11 +165,9 @@ namespace BookApp.Tests.UnitTest
 
                 OkNegotiatedContentResult<ReservationResult> result = (OkNegotiatedContentResult<ReservationResult>)response;
 
-                Assert.IsNotNull(result);
+                ReservationResult output = new ReservationResult() {ReservationBatchId = 1, ReservedItemIds = new int[] {1}};
 
-                Assert.AreEqual(1, result.Content.ReservationBatchId);
-
-                Assert.AreEqual(1, result.Content.ReservedItemIds[0]);
+                Assert.IsTrue(result.Content.Equals(output));
             }
             catch (Exception e)
             {
@@ -230,11 +228,9 @@ namespace BookApp.Tests.UnitTest
 
                 OkNegotiatedContentResult<ReservationResult> result = (OkNegotiatedContentResult<ReservationResult>)response;
 
-                Assert.IsNotNull(result);
+                ReservationResult output = new ReservationResult { ReservationBatchId = 1, ReservedItemIds = new int[] { 1 } };
 
-                Assert.AreEqual(1, result.Content.ReservationBatchId);
-
-                Assert.AreEqual(1, result.Content.ReservedItemIds[0]);
+                Assert.IsTrue(result.Content.Equals(output));
             }
             catch (Exception e)
             {
@@ -277,19 +273,6 @@ namespace BookApp.Tests.UnitTest
             mockedContext.Setup(c => c.Reservations).Returns(reservation.Object);
             mockedContext.Setup(c => c.SerialItems).Returns(serialitem.Object);
             return new LoanController(mockedContext.Object);
-        }
-
-
-
-        //var status = new List<ItemStatu> { GetItemStatus() };
-        //var statusData = status.AsQueryable();
-        //var mockstatusSet = new Mock<DbSet<ItemStatu>>();
-        //mockstatusSet.As<IQueryable<ItemStatu>>().Setup(m => m.Provider).Returns(statusData.Provider);
-        //mockstatusSet.As<IQueryable<ItemStatu>>().Setup(m => m.Expression).Returns(statusData.Expression);
-        //mockstatusSet.As<IQueryable<ItemStatu>>().Setup(m => m.ElementType).Returns(statusData.ElementType);
-        //mockstatusSet.As<IQueryable<ItemStatu>>().Setup(m => m.GetEnumerator()).Returns(statusData.GetEnumerator());
-
-        //var mockedContext = new Mock<DataContext>();
-        //mockedContext.Setup(c => c.Items).Returns(mockItemSet.Object);
+        }        
     }
 }

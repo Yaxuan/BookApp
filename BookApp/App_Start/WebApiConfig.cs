@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using BookApp.Job;
 using Newtonsoft.Json;
 
 namespace BookApp
@@ -27,13 +28,7 @@ namespace BookApp
 
             config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling
                  = PreserveReferencesHandling.Objects;
-            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-
-            //JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            //{
-            //    Formatting = Formatting.Indented,
-            //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            //};
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;            
         }
     }
 }
