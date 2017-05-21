@@ -9,19 +9,33 @@ namespace BookApp.DataAccess.Interface
     {
         Task<TEntity> GetAsync(int id);
 
-        IEnumerable<TEntity> GetAll();
+        Task<TEntity> GetAsync(string id);
 
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> GetAllAsync();
 
-        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
 
-        void Add(TEntity entity);
+        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+
+        Task AddAsync(TEntity entity);
+
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
 
         void AddRange(IEnumerable<TEntity> entities);
 
-        void Remove(TEntity entity);
+        Task RemoveAsync(TEntity entity);
 
-        void RemoveRange(IEnumerable<TEntity> entities);
+        Task RemoveRangeAsync(IEnumerable<TEntity> entities);
+
+        Task SaveAsync(TEntity entity);
+
+        void Save(TEntity entity);
+
+        Task SaveRangeAsync(IEnumerable<TEntity> entities);
+
+        void SaveRange(IEnumerable<TEntity> entities);
+
+        //Task<long> GetSequenceNoAsync(string sequenceName);
 
     }
 }

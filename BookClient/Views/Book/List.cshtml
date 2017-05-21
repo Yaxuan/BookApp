@@ -1,0 +1,131 @@
+﻿@using BookClient.Enum
+@model IEnumerable<BookClient.Models.Book>
+
+@if (Model != null)
+{
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Isbn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorNames)
+            </th>
+            @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Language)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Binding)
+                </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.Edition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price_unit)
+            </th>
+            @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
+            {
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Publish_time)
+                </th>
+            }
+
+            <th>
+                @Html.DisplayNameFor(model => model.Page)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CanLoanOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Available)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isbn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorNames)
+                </td>
+                @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Language)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Binding)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price_unit)
+                </td>
+                @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publish_time)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Page)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CanLoanOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Available)
+                </td>
+                <td>
+                    @Html.ActionLink("Reserve", "ReserveAsync", new { isbn = item.Isbn })
+                </td>
+                @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
+                {
+                    <td>                        
+                        @Html.ActionLink("Edit", "Edit", new {id = item.Item_id})
+                        <br/>
+                        @Html.ActionLink("Details", "Details", new {id = item.Item_id})
+                        <br />
+                        @Html.ActionLink("Delete", "Delete", new {id = item.Item_id})
+                    </td>
+                }
+            </tr>
+        }
+
+    </table>
+}

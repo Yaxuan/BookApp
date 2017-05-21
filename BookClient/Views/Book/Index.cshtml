@@ -1,0 +1,82 @@
+﻿@using BookClient.Enum
+@model BookClient.ViewModels.SearchBookViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<style type="text/css">
+    .bookheader {
+        font-size: large;
+        color: #073d78;
+        font-weight: bold;
+    }
+
+    .bookauthor {
+        font-style: italic;
+    }
+</style>
+
+<h2></h2>
+
+@using (Html.BeginForm("SearchAsync", "Book", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            @Html.EditorFor(model => model.SearchField, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "SearchAsync title, author ect." } })
+            <div class="col-md-2">
+                <input type="submit" value="Search" class="btn btn-primary" onclick="location.href = '@Url.Action("SearchAsync", "Book")'" />
+            </div>
+        </div>
+
+    </div>
+}
+
+@if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
+{
+    @Html.ActionLink("Create", "Create", new {/* id=item.PrimaryKey */}) 
+    @*using (Html.BeginForm("Create", "Book", FormMethod.Post))
+    {
+        <input type="submit" value="Create" class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Book")'" />
+    }*@
+}
+
+
+@Html.Raw(TempData["msg"])
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@Html.Partial("List", Model?.Books)
+
+@*@foreach (var book in Model.Books)
+    {
+        <div class="bookheader">@book.Title</div>
+
+        <div class="bookauthor text-muted">@string.Join(",", book.Authors.Select(a => a.AuthorName).ToArray())</div>
+
+        <div class="text-muted">@book.Publish_time</div>
+
+        <div>
+            @Html.ActionLink("Detail", "Details", new { @id = book.Item_id })
+
+            @if (Equals(@HttpContext.Current.Session["UpdateBookPermission"], PermissionEnum.UpdateBook.ToString()))
+            {
+                @Html.ActionLink("Edit ", "Edit", new { @id = book.Item_id })
+                @Html.ActionLink("Delete", "Delete", new { @id = book.Item_id })
+
+            }
+        </div>
+        <hr />
+    }*@
+
+<hr />
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

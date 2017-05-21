@@ -10,6 +10,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookClient", "BookClient\BookClient.csproj", "{F0B575C2-2316-48DC-A764-656C02B08911}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookClient.Tests", "BookClient.Tests\BookClient.Tests.csproj", "{AFB4EB5E-E468-40B8-AE7F-9422F35771B4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E9ABDD7-CD32-480E-8FB2-7369CAA52538} = {0E9ABDD7-CD32-480E-8FB2-7369CAA52538}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTest", "DataTest\DataTest.csproj", "{2B8F8C02-3AFE-4578-9CAD-A404654C4EA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{CCA059C1-4B59-4A36-A9ED-B24BB5B62A6F}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\MyBookAppCSharp.ruleset = SonarQube\MyBookAppCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +44,10 @@ Global
 		{AFB4EB5E-E468-40B8-AE7F-9422F35771B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFB4EB5E-E468-40B8-AE7F-9422F35771B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFB4EB5E-E468-40B8-AE7F-9422F35771B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B8F8C02-3AFE-4578-9CAD-A404654C4EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B8F8C02-3AFE-4578-9CAD-A404654C4EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B8F8C02-3AFE-4578-9CAD-A404654C4EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B8F8C02-3AFE-4578-9CAD-A404654C4EA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

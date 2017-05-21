@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f19045f6c0344ebf94bdb810e1d8dca6" Name="Diagram1">
+        <EntityTypeShape EntityType="GlsEntityModel.Author" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Book" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.BookLog" Width="1.5" PointX="8.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Employee" Width="1.5" PointX="8.25" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Fine" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.InsideReservation" Width="1.5" PointX="7.5" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Item" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.ItemStatu" Width="1.5" PointX="6" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Library" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Loan_Rule" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Location" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Member" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.MemberCampusAddress" Width="1.5" PointX="10.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.MemberCard" Width="1.5" PointX="10.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.NormalMember" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.OutsideReservation" Width="1.5" PointX="7.5" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Permission" Width="1.5" PointX="0.75" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.Reservation" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.SerialItem" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.sysdiagram" Width="1.5" PointX="10.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.User" Width="1.5" PointX="6" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.UserGroup" Width="1.5" PointX="2.75" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlsEntityModel.WishList" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <AssociationConnector Association="GlsEntityModel.FK_Book_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_Employee_User" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_Fine_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_Fine_SerialItem" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_InsideReservation_Reservation" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_ItemStatus_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_SerialItem_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_WishList_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_ItemStatus_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_Library_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_Member_Loan_Rule" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_SerialItem_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_NormalMember_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_Reservation_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_MemberCampusAddress_NormalMember" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_MemberCard_NormalMember" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_NormalMember_User" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_OutsideReservation_Reservation" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_User_UserGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.BookAuthor" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.UserGroupPermission" ManuallyRouted="false" />
+        <AssociationConnector Association="GlsEntityModel.FK_InsideReservation_SerialItem" />
+        <AssociationConnector Association="GlsEntityModel.FK_SerialItem_Item1" />
+        <EntityTypeShape EntityType="GlsEntityModel.BookStatusView" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GlsEntityModel.UserReservationView" Width="1.5" PointX="7.75" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
