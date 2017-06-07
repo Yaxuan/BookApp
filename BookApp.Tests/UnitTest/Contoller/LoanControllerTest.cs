@@ -18,7 +18,7 @@ namespace BookApp.Tests.UnitTest
     public class LoanControllerTest
     {
         /// <summary>
-        /// FTC 2.1.1
+        /// FTC 1.1.1
         /// </summary>
         /// <returns></returns>
         [TestMethod]
@@ -26,7 +26,7 @@ namespace BookApp.Tests.UnitTest
         {
             try
             {
-                var input = FTC_2_1_1.TestCaseInput1();
+                var input = Input.TestCaseInput1();
                 var inputItem = input.Item1;
                 var inputMember = input.Item2;
                 var inputBookStatusView = input.Item3;
@@ -49,7 +49,7 @@ namespace BookApp.Tests.UnitTest
         }        
 
         /// <summary>
-        /// FTC 2.1.2
+        /// FTC 1.1.2
         /// </summary>
         /// <returns></returns>
         [TestMethod]
@@ -57,7 +57,7 @@ namespace BookApp.Tests.UnitTest
         {
             try
             {
-                var input = FTC_2_1_1.TestCaseInput1();
+                var input = Input.TestCaseInput1();
                 var inputItem = input.Item1;
                 var inputBookStatusView = input.Item3;
                 var inputLoanRequirement = input.Item4;
@@ -79,7 +79,7 @@ namespace BookApp.Tests.UnitTest
         }
 
         /// <summary>
-        /// FTC 2.1.3
+        /// FTC 1.1.3
         /// </summary>
         /// <returns></returns>
         [TestMethod]
@@ -87,7 +87,7 @@ namespace BookApp.Tests.UnitTest
         {
             try
             {
-                var input = FTC_2_1_1.TestCaseInput1();
+                var input = Input.TestCaseInput1();
                 var inputItem = input.Item1;
                 var inputMember = input.Item2;
                 var inputBookStatusView = input.Item3;
@@ -112,7 +112,7 @@ namespace BookApp.Tests.UnitTest
         }
 
         /// <summary>
-        /// FTC 2.1.4
+        /// FTC 1.1.4
         /// </summary>
         /// <returns></returns>
         [TestMethod]
@@ -120,7 +120,7 @@ namespace BookApp.Tests.UnitTest
         {
             try
             {
-                var input = FTC_2_1_1.TestCaseInput1();
+                var input = Input.TestCaseInput1();
                 var inputItem = input.Item1;
                 var inputMember = input.Item2;
                 var inputBookStatusView = input.Item3;
@@ -145,7 +145,7 @@ namespace BookApp.Tests.UnitTest
         }
 
         /// <summary>
-        /// FTC 2.1.5
+        /// FTC 1.1.5
         /// </summary>
         /// <returns></returns>
         [TestMethod]
@@ -153,7 +153,7 @@ namespace BookApp.Tests.UnitTest
         {
             try
             {
-                var input = FTC_2_1_1.TestCaseInput1();
+                var input = Input.TestCaseInput1();
                 var inputItem = input.Item1;
                 var inputMember = input.Item2;
                 var inputBookStatusView = input.Item3;
@@ -178,7 +178,7 @@ namespace BookApp.Tests.UnitTest
         }
 
         /// <summary>
-        /// FTC 2.1.6
+        /// FTC 1.1.6
         /// </summary>
         /// <returns></returns>
         [TestMethod]
@@ -186,7 +186,7 @@ namespace BookApp.Tests.UnitTest
         {
             try
             {
-                var input = FTC_2_1_1.TestCaseInput2();
+                var input = Input.TestCaseInput2();
                 var inputItem = input.Item1;
                 var inputMember = input.Item2;
                 var inputBookStatusView = input.Item3;
@@ -208,7 +208,7 @@ namespace BookApp.Tests.UnitTest
         }
 
         /// <summary>
-        /// FTC 2.1.7
+        /// FTC 1.1.7
         /// </summary>
         /// <returns></returns>
         [TestMethod]
@@ -216,7 +216,7 @@ namespace BookApp.Tests.UnitTest
         {
             try
             {
-                var input = FTC_2_1_1.TestCaseInput3();
+                var input = Input.TestCaseInput3();
                 var inputItem = input.Item1;
                 var inputMember = input.Item2;
                 var inputBookStatusView = input.Item3;

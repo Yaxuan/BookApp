@@ -25,7 +25,7 @@ namespace BookClient.Tests.Controllers
 
             UserLoginViewModel userLoginViewModel = new UserLoginViewModel() { User_name = "normal0", Password = "1234" };
 
-            var redirectResult = await controller.Index(userLoginViewModel) as RedirectToRouteResult;
+            var redirectResult = await controller.Index(userLoginViewModel).ConfigureAwait(false) as RedirectToRouteResult;
 
             Assert.IsNotNull(redirectResult, "Not a redirect result");
 

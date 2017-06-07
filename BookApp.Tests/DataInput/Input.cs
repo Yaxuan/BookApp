@@ -4,11 +4,12 @@ using BookApp.Models;
 
 namespace BookApp.Tests.DataInput
 {
-    public static class FTC_2_1_1
+    public static class Input
     {
         private static string isbn = "123456789";
 
         /// <summary>
+        /// FTC1.1.1
         /// Get a available book for a normal member to reserve
         /// </summary>
         /// <returns></returns>
@@ -46,6 +47,10 @@ namespace BookApp.Tests.DataInput
             return Tuple.Create(item, normalMember, bookStatus, loanRequirement);
         }
 
+        /// <summary>
+        /// FTC1.1.1
+        /// </summary>
+        /// <returns></returns>
         public static Tuple<Item, Member, BookStatusView, LoanRequirement> TestCaseInput2()
         {
             var libraryMember = new Member
@@ -80,6 +85,10 @@ namespace BookApp.Tests.DataInput
             return Tuple.Create(item, libraryMember, bookStatus, loanRequirement);
         }
 
+        /// <summary>
+        /// FTC1.1.1
+        /// </summary>
+        /// <returns></returns>
         public static Tuple<Item, Member, BookStatusView, LoanRequirement> TestCaseInput3()
         {
             var libraryMember = new Member
